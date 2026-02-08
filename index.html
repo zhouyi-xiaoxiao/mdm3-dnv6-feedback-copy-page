@@ -33,6 +33,8 @@
       --warn: #9f5a00;
     }
 
+    html { scroll-behavior: smooth; }
+
     * { box-sizing: border-box; }
 
     body {
@@ -133,8 +135,101 @@
     .status.ok { color: var(--ok); }
     .status.warn { color: var(--warn); }
 
+    .reading-layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .map-panel {
+      position: sticky;
+      top: 14px;
+    }
+
+    .map-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(16, 37, 68, 0.05);
+      padding: 12px;
+    }
+
+    .map-title {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      color: #214a75;
+    }
+
+    .map-note {
+      margin: 0 0 10px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .map-links {
+      display: grid;
+      gap: 7px;
+    }
+
+    .map-links a {
+      text-decoration: none;
+      color: #1e456d;
+      border: 1px solid #d7e3f3;
+      background: #f8fbff;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-size: 0.89rem;
+      line-height: 1.3;
+      transition: background .12s ease, border-color .12s ease;
+    }
+
+    .map-links a:hover {
+      background: #eef5ff;
+      border-color: #b9d0ee;
+    }
+
+    .map-lang { display: none; }
+    .map-lang.active { display: block; }
+
+    .content-column {
+      min-width: 0;
+      max-width: 900px;
+    }
+
     .lang-pane { display: none; }
     .lang-pane.active { display: block; }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+      margin-bottom: 10px;
+    }
+
+    .overview-card {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 10px;
+      background: #fbfdff;
+    }
+
+    .overview-k {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+      color: var(--muted);
+      margin: 0 0 4px;
+    }
+
+    .overview-v {
+      margin: 0;
+      font-weight: 700;
+      color: #173f69;
+      font-size: 0.98rem;
+      line-height: 1.32;
+    }
 
     .section {
       background: var(--panel);
@@ -143,6 +238,7 @@
       padding: 16px;
       margin-bottom: 14px;
       box-shadow: 0 3px 10px rgba(16, 37, 68, 0.05);
+      scroll-margin-top: 18px;
     }
 
     .section h2 {
@@ -171,6 +267,10 @@
     .must { background: var(--must); }
     .should { background: var(--should); }
     .plus { background: var(--plus); }
+
+    .priority-must { border-top: 4px solid var(--must); }
+    .priority-should { border-top: 4px solid var(--should); }
+    .priority-plus { border-top: 4px solid var(--plus); }
 
     .item {
       border: 1px solid var(--line);
@@ -261,12 +361,28 @@
       font-size: .9rem;
     }
 
+    @media (max-width: 980px) {
+      .reading-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .map-panel {
+        position: static;
+      }
+
+      .map-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 760px) {
       .wrap { padding: 14px 12px 24px; }
       .hero { padding: 16px 14px 14px; }
       .section { padding: 12px; }
       .toolbar { gap: 7px; }
       button { padding: 7px 10px; }
+      .overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .map-links { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -286,9 +402,62 @@
       <span id="status" class="status">Ready.</span>
     </div>
 
+    <div class="reading-layout">
+      <aside class="map-panel">
+        <div class="map-card map-lang map-en active" id="map-en">
+          <h3 class="map-title">Reading Map</h3>
+          <p class="map-note">Start with priorities, then paste-ready blocks, then final checklist.</p>
+          <nav class="map-links">
+            <a href="#en-at-a-glance">At a Glance</a>
+            <a href="#en-overall">Overall Assessment</a>
+            <a href="#en-must">Must-Fix Revisions</a>
+            <a href="#en-recommended">Recommended Improvements</a>
+            <a href="#en-optional">Optional Add-on</a>
+            <a href="#en-checklist">Submission Checklist</a>
+          </nav>
+        </div>
+
+        <div class="map-card map-lang map-zh" id="map-zh">
+          <h3 class="map-title">阅读导航</h3>
+          <p class="map-note">先看优先级，再看可粘贴模板，最后对照提交清单。</p>
+          <nav class="map-links">
+            <a href="#zh-at-a-glance">一页总览</a>
+            <a href="#zh-overall">总体评价</a>
+            <a href="#zh-must">必改项</a>
+            <a href="#zh-recommended">建议改进项</a>
+            <a href="#zh-optional">可选加分项</a>
+            <a href="#zh-checklist">提交前自检</a>
+          </nav>
+        </div>
+      </aside>
+
+      <div class="content-column">
+
     <!-- English Pane -->
     <main id="pane-en" class="lang-pane active">
-      <section class="section">
+      <section class="section" id="en-at-a-glance">
+        <h2>At a Glance</h2>
+        <div class="overview-grid">
+          <article class="overview-card">
+            <p class="overview-k">Must-Fix Items</p>
+            <p class="overview-v">7 Core Revisions</p>
+          </article>
+          <article class="overview-card">
+            <p class="overview-k">Recommended</p>
+            <p class="overview-v">3 Score-Uplift Items</p>
+          </article>
+          <article class="overview-card">
+            <p class="overview-k">Optional</p>
+            <p class="overview-v">1 Strategic Add-on</p>
+          </article>
+          <article class="overview-card">
+            <p class="overview-k">Paste-Ready Blocks</p>
+            <p class="overview-v">5 Copyable Templates</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="en-overall">
         <h2>Overall Assessment</h2>
         <p>This revision is clearly stronger than the earlier version. Major progress is visible in scope definition, case consistency, and evidence generation.</p>
         <ul>
@@ -299,7 +468,7 @@
         <p>Remaining work should focus on removing placeholders, tightening reproducibility details, and explicitly linking work-per-cycle findings to damping/stability claims.</p>
       </section>
 
-      <section class="section">
+      <section class="section priority-must" id="en-must">
         <h2>Must-Fix Revisions <span class="tag must">HIGH PRIORITY</span></h2>
 
         <article class="item">
@@ -394,7 +563,7 @@
         </article>
       </section>
 
-      <section class="section">
+      <section class="section priority-should" id="en-recommended">
         <h2>Recommended Improvements <span class="tag should">SCORE UPLIFT</span></h2>
 
         <article class="item">
@@ -416,7 +585,7 @@
         </article>
       </section>
 
-      <section class="section">
+      <section class="section priority-plus" id="en-optional">
         <h2>Optional High-Value Add-on <span class="tag plus">IF TIME ALLOWS</span></h2>
         <article class="item">
           <h3>11) Add a DNV-facing model-selection mini matrix</h3>
@@ -429,7 +598,7 @@
         </article>
       </section>
 
-      <section class="section">
+      <section class="section" id="en-checklist">
         <h2>Final Submission Checklist</h2>
         <ol>
           <li>Fill the abstract on PDF p.2.</li>
@@ -507,7 +676,29 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
 
     <!-- Chinese Pane -->
     <main id="pane-zh" class="lang-pane">
-      <section class="section">
+      <section class="section" id="zh-at-a-glance">
+        <h2>一页总览</h2>
+        <div class="overview-grid">
+          <article class="overview-card">
+            <p class="overview-k">必改项</p>
+            <p class="overview-v">7 个核心修订点</p>
+          </article>
+          <article class="overview-card">
+            <p class="overview-k">建议改进项</p>
+            <p class="overview-v">3 个提分项</p>
+          </article>
+          <article class="overview-card">
+            <p class="overview-k">可选加分项</p>
+            <p class="overview-v">1 个策略补充</p>
+          </article>
+          <article class="overview-card">
+            <p class="overview-k">可复制模板</p>
+            <p class="overview-v">5 段可直接粘贴</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="zh-overall">
         <h2>总体评价</h2>
         <p>这版报告相比之前有明显提升，整体框架已经接近闭环。当前重点是把“未完成痕迹”和“可复现性短板”补齐，让结论更有说服力。</p>
         <ul>
@@ -518,7 +709,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         <p>下一步建议集中在：清理占位符、修正引用对应关系、补全 work-per-cycle 方法细节，并把其结论明确写进 Results/Discussion。</p>
       </section>
 
-      <section class="section">
+      <section class="section priority-must" id="zh-must">
         <h2>必改项 <span class="tag must">高优先级</span></h2>
 
         <article class="item">
@@ -613,7 +804,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         </article>
       </section>
 
-      <section class="section">
+      <section class="section priority-should" id="zh-recommended">
         <h2>建议改进项 <span class="tag should">显著提分</span></h2>
 
         <article class="item">
@@ -635,7 +826,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         </article>
       </section>
 
-      <section class="section">
+      <section class="section priority-plus" id="zh-optional">
         <h2>可选加分项 <span class="tag plus">有余力再做</span></h2>
         <article class="item">
           <h3>11）增加面向 DNV 的模型选择小结框</h3>
@@ -648,7 +839,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         </article>
       </section>
 
-      <section class="section">
+      <section class="section" id="zh-checklist">
         <h2>提交前四项自检</h2>
         <ol>
           <li>补上 Abstract（PDF p.2）。</li>
@@ -708,6 +899,9 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
 3. 写实 work-per-cycle 方法与结论衔接。
 4. 修正引用与图注一致性。</textarea>
     </main>
+
+      </div>
+    </div>
 
     <footer id="footer-text">Best compatibility: modern browsers over HTTPS. If clipboard access is blocked, select the target text and press Cmd/Ctrl+C.</footer>
   </div>
@@ -823,6 +1017,8 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
 
       document.getElementById('pane-en').classList.toggle('active', lang === 'en');
       document.getElementById('pane-zh').classList.toggle('active', lang === 'zh');
+      document.getElementById('map-en').classList.toggle('active', lang === 'en');
+      document.getElementById('map-zh').classList.toggle('active', lang === 'zh');
 
       const t = i18n[lang];
       heroTitleEl.innerHTML = t.heroTitle;
