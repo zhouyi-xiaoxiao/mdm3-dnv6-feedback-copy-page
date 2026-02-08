@@ -3,21 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MDM3 DNV6 - Full Structured Feedback</title>
+  <title>MDM3 DNV6 - Bilingual Structured Feedback</title>
   <style>
     :root {
-      --bg: #eef4fb;
+      --bg-1: #edf3fb;
+      --bg-2: #f8fbff;
       --panel: #ffffff;
-      --ink: #1a2433;
-      --muted: #566274;
-      --line: #d5dfec;
-      --accent: #0e5eb8;
-      --accent-2: #0a4a91;
-      --must: #9f2222;
-      --should: #a26200;
-      --plus: #1e7d4f;
-      --ok: #127a52;
-      --warn: #9e5f00;
+      --ink: #182433;
+      --muted: #5b6778;
+      --line: #d9e2ef;
+      --brand: #0f63bf;
+      --brand-2: #0c4f95;
+      --must: #a1262a;
+      --should: #9f6200;
+      --plus: #1f7a4c;
+      --ok: #12764f;
+      --warn: #9f5a00;
     }
 
     * { box-sizing: border-box; }
@@ -25,72 +26,94 @@
     body {
       margin: 0;
       color: var(--ink);
-      font-family: "Avenir Next", "Segoe UI", -apple-system, system-ui, sans-serif;
-      line-height: 1.55;
+      font-family: "Avenir Next", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      line-height: 1.56;
       background:
-        radial-gradient(circle at 0% 0%, #ffffff 0%, var(--bg) 55%),
-        linear-gradient(160deg, #eef4fb 0%, #f7faff 100%);
+        radial-gradient(circle at 0% 0%, #ffffff 0%, var(--bg-1) 58%),
+        linear-gradient(150deg, var(--bg-1) 0%, var(--bg-2) 100%);
     }
 
     .wrap {
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 26px 18px 36px;
+      padding: 24px 18px 34px;
     }
 
     .hero {
-      background: linear-gradient(125deg, #0b5fbf 0%, #1b7ce0 100%);
+      position: relative;
+      background: linear-gradient(120deg, #0c5eb8 0%, #1f83e2 100%);
       color: #fff;
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 22px 22px 18px;
-      box-shadow: 0 10px 28px rgba(12, 76, 148, 0.26);
-      margin-bottom: 14px;
+      box-shadow: 0 12px 28px rgba(11, 78, 152, 0.24);
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.11);
     }
 
     .hero h1 {
       margin: 0 0 6px;
-      font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+      font-size: clamp(1.25rem, 2.3vw, 1.82rem);
       letter-spacing: 0.2px;
+      position: relative;
+      z-index: 1;
     }
 
     .hero p {
       margin: 0;
       opacity: 0.95;
-      font-size: 0.97rem;
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
     }
 
     .toolbar {
+      margin: 12px 0 18px;
       display: flex;
       flex-wrap: wrap;
       gap: 9px;
       align-items: center;
-      margin: 10px 0 18px;
     }
 
     button {
       border: 1px solid var(--line);
-      border-radius: 10px;
       background: var(--panel);
       color: var(--ink);
-      font-weight: 650;
+      border-radius: 10px;
       padding: 8px 12px;
+      font-weight: 650;
       cursor: pointer;
-      transition: transform .08s ease, box-shadow .12s ease;
+      transition: transform .09s ease, box-shadow .12s ease;
     }
 
     button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
     .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent-2);
+      background: var(--brand);
       color: #fff;
+      border-color: var(--brand-2);
+    }
+
+    .btn-toggle {
+      background: #0e3f77;
+      color: #fff;
+      border-color: #0a315d;
     }
 
     .status {
-      font-size: .89rem;
+      font-size: .9rem;
       color: var(--muted);
       margin-left: 2px;
     }
@@ -98,67 +121,70 @@
     .status.ok { color: var(--ok); }
     .status.warn { color: var(--warn); }
 
+    .lang-pane { display: none; }
+    .lang-pane.active { display: block; }
+
     .section {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 16px;
       margin-bottom: 14px;
-      box-shadow: 0 3px 10px rgba(14, 38, 72, 0.05);
+      box-shadow: 0 3px 10px rgba(16, 37, 68, 0.05);
     }
 
     .section h2 {
       margin: 0 0 8px;
-      color: #133f6b;
       font-size: 1.18rem;
+      color: #153f69;
     }
 
     .section h3 {
       margin: 14px 0 8px;
-      font-size: 1rem;
-      color: #1c4d7f;
+      font-size: 1.01rem;
+      color: #1d4f82;
     }
 
     .tag {
       display: inline-block;
       border-radius: 999px;
-      padding: 2px 10px;
+      color: #fff;
       font-size: .78rem;
       font-weight: 700;
+      padding: 2px 10px;
       margin-left: 8px;
       vertical-align: middle;
-      color: #fff;
     }
 
     .must { background: var(--must); }
     .should { background: var(--should); }
     .plus { background: var(--plus); }
 
-    ul { margin: 8px 0 0 18px; }
-    li { margin: 4px 0; }
-
     .item {
       border: 1px solid var(--line);
       border-radius: 12px;
+      background: #fbfdff;
       padding: 12px;
       margin-top: 10px;
-      background: #fbfdff;
     }
 
-    .item .meta {
+    .meta {
       color: var(--muted);
-      font-size: .91rem;
-      margin-top: 4px;
+      font-size: .92rem;
+      margin: 4px 0;
     }
 
-    .meta strong { color: #2a3f57; }
+    .meta strong { color: #2b3e55; }
+
+    ul { margin: 8px 0 0 18px; }
+    li { margin: 4px 0; }
 
     .template {
-      border: 1px dashed #b9cae0;
-      background: #f3f8ff;
+      margin-top: 10px;
+      border: 1px dashed #b6cae3;
       border-radius: 10px;
       padding: 10px;
-      margin-top: 10px;
+      background: #f2f8ff;
     }
 
     .template-head {
@@ -167,8 +193,8 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 8px;
-      font-size: .9rem;
-      color: #305274;
+      color: #345679;
+      font-size: .92rem;
     }
 
     textarea {
@@ -176,25 +202,23 @@
       min-height: 120px;
       border: 1px solid var(--line);
       border-radius: 9px;
+      background: #fff;
+      color: #162437;
       padding: 9px;
       resize: vertical;
-      background: #ffffff;
-      color: #162337;
       font-family: "JetBrains Mono", "Menlo", "Consolas", monospace;
       font-size: .86rem;
-      line-height: 1.42;
+      line-height: 1.43;
     }
-
-    .checklist li { margin: 6px 0; }
 
     .note {
       margin-top: 10px;
       padding: 10px;
-      border-left: 4px solid #8db0d7;
-      background: #f5f9ff;
-      color: #2b4867;
-      font-size: .94rem;
+      border-left: 4px solid #8cb0d8;
       border-radius: 0 8px 8px 0;
+      background: #f5f9ff;
+      color: #2a4767;
+      font-size: .95rem;
     }
 
     footer {
@@ -205,6 +229,7 @@
 
     @media (max-width: 760px) {
       .wrap { padding: 14px 12px 24px; }
+      .hero { padding: 16px 14px 14px; }
       .section { padding: 12px; }
       .toolbar { gap: 7px; }
       button { padding: 7px 10px; }
@@ -214,11 +239,12 @@
 <body>
   <div class="wrap">
     <header class="hero">
-      <h1>Full Structured Feedback for <code>MDM3___DNV (6).pdf</code></h1>
-      <p>Complete review page with all required fixes, recommended improvements, optional score-boost item, and paste-ready wording blocks.</p>
+      <h1 id="hero-title">Full Structured Feedback for <code>MDM3___DNV (6).pdf</code></h1>
+      <p id="hero-subtitle">Bilingual review page with complete feedback, polished formatting, and one-click copy actions.</p>
     </header>
 
     <div class="toolbar">
+      <button class="btn-toggle" id="lang-toggle">切换中文</button>
       <button class="btn-primary" id="copy-full">Copy Full Feedback (Text)</button>
       <button id="copy-templates">Copy All Paste-Ready Blocks</button>
       <button id="expand-all">Expand Templates</button>
@@ -226,163 +252,161 @@
       <span id="status" class="status">Ready.</span>
     </div>
 
-    <section class="section" id="overall">
-      <h2>Overall Assessment</h2>
-      <p>This revision is clearly stronger than the earlier version. Major progress is visible in scope definition, case consistency, and evidence generation.</p>
-      <ul>
-        <li><strong>Research objective is clearer:</strong> Introduction now states unified implementation, validation, STFT analysis, and work-per-cycle interpretation.</li>
-        <li><strong>Case definition is now consistent:</strong> <code>k=0.079</code>, <code>\bar{\alpha}=18.5^\circ</code>, and <code>A=10.4^\circ</code> are used consistently across sections.</li>
-        <li><strong>Core evidence now exists:</strong> work-per-cycle plots (Figures 1-4) and rigid/flexible spectral comparison (Figures 6-9) create a near-complete narrative.</li>
-      </ul>
-      <p>Remaining work is concentrated on removing unfinished placeholders, improving reproducibility details, and explicitly linking work-per-cycle findings to damping/stability claims.</p>
-    </section>
-
-    <section class="section" id="must-fix">
-      <h2>Must-Fix Revisions <span class="tag must">HIGH PRIORITY</span></h2>
-
-      <article class="item">
-        <h3>1) Abstract is currently empty</h3>
-        <p class="meta"><strong>Location:</strong> PDF p.2, under "Abstract".</p>
-        <p class="meta"><strong>Why:</strong> Directly harms first-pass scientific credibility and presentation score.</p>
-        <p class="meta"><strong>Action:</strong> Add one 150-220 word abstract covering: models + benchmark, extra analysis, key findings, and recommendation boundary.</p>
-        <div class="template">
-          <div class="template-head">
-            <strong>Paste-ready wording (Abstract skeleton)</strong>
-            <button class="copy-btn" data-copy="tpl-1">Copy</button>
-          </div>
-          <textarea id="tpl-1" readonly>We implemented the Oye, Beddoes--Leishman (BL), and IAG dynamic stall models in a consistent framework and validated their \(C_L\), \(C_D\), and \(C_M\) hysteresis predictions against the NREL/OSU S809 benchmark at \(k=0.079\) and \(\alpha=18.5^\circ \pm 10.4^\circ\). We then quantified cycle-averaged aerodynamic work \(W=\oint C_M\,d\alpha\) to assess the tendency for negative/positive aerodynamic damping, and performed STFT-based time-frequency analysis on rigid-model outputs and a public flexible-blade dataset. Under the examined conditions, [key finding 1] and [key finding 2]. These results suggest that [recommendation to DNV], while [limitations and applicability boundary].</textarea>
-        </div>
-      </article>
-
-      <article class="item">
-        <h3>2) Placeholder/internal-note text still appears in the report</h3>
-
-        <p class="meta"><strong>2.1 Location:</strong> PDF p.13, Section 4.2: "see add the OTHER STUFF TO APPENDIX".</p>
-        <p class="meta"><strong>Action:</strong> Remove it or replace with a traceable appendix reference.</p>
-        <div class="template">
-          <div class="template-head">
-            <strong>Paste-ready wording (Section 4.2)</strong>
-            <button class="copy-btn" data-copy="tpl-2">Copy</button>
-          </div>
-          <textarea id="tpl-2" readonly>The static and Oye cases are included in Appendix A.6 (Figures 10-13) as baselines; the main discussion therefore focuses on BL and IAG, which are more relevant for wind-turbine applications under strongly unsteady conditions.</textarea>
-        </div>
-
-        <p class="meta"><strong>2.2 Location:</strong> PDF p.17, Discussion: "GAP FOR CAROLINE ADD THE WORK PER CYCLE ANALYSIS PLEASE".</p>
-        <p class="meta"><strong>Action:</strong> Replace with real work-per-cycle interpretation tied to Figures 1-4 and Figures 8-9.</p>
-        <div class="template">
-          <div class="template-head">
-            <strong>Paste-ready wording (Work-per-cycle implications)</strong>
-            <button class="copy-btn" data-copy="tpl-3">Copy</button>
-          </div>
-          <textarea id="tpl-3" readonly>Figures 1-4 quantify cycle-by-cycle aerodynamic work \(W=\oint C_M\,d\alpha\) under prescribed excitation. Using the sign convention \(W>0\) as net aerodynamic energy input to the motion (negative damping) and \(W<0\) as net dissipation (positive damping), the BL model exhibits [persistent positive \(W\) / onset after \(t\approx\cdots\) / resonance amplification], whereas the IAG response remains [near zero / negative / bounded] across the same conditions. This is consistent with the flexible-blade STFT results: the BL case shows a broadband energy burst around \(t\approx 65\text{--}75\,\mathrm{s}\) (Figure 8), while the IAG case remains dominated by discrete harmonics (Figure 9). Importantly, \(W\) here is a model-based indicator under prescribed motion and may be affected by numerical stabilisation (e.g., amplitude limiting in IAG); therefore we interpret the work trends as comparative evidence rather than a direct physical damping measurement.</textarea>
-        </div>
-
-        <p class="meta"><strong>2.3 Location:</strong> PDF p.19, Appendix A.3 first paragraph (self-negating wording).</p>
-        <p class="meta"><strong>Action:</strong> Remove the section or replace with objective justification.</p>
-        <div class="template">
-          <div class="template-head">
-            <strong>Paste-ready wording (Appendix A.3)</strong>
-            <button class="copy-btn" data-copy="tpl-4">Copy</button>
-          </div>
-          <textarea id="tpl-4" readonly>This appendix provides supplementary stability-related derivations for completeness. These results are not required for the main conclusions in Sections 4-5 but are included to support reproducibility and future extensions.</textarea>
-        </div>
-      </article>
-
-      <article class="item">
-        <h3>3) Work-per-cycle method is still under-specified for reproducibility</h3>
-        <p class="meta"><strong>Location:</strong> PDF p.10, Section 3.5 (after Eq. 15).</p>
-        <p class="meta"><strong>Missing details:</strong> cycle boundary rule, discrete integration method, sign convention, and why <code>C_M-\alpha</code> is used.</p>
-        <div class="template">
-          <div class="template-head">
-            <strong>Paste-ready wording (method detail)</strong>
-            <button class="copy-btn" data-copy="tpl-5">Copy</button>
-          </div>
-          <textarea id="tpl-5" readonly>In practice, \(W\) is computed once per excitation cycle using the discrete time series \((\alpha_i, C_{M,i})\) and a trapezoidal approximation of \(\oint C_M\,d\alpha\). Cycle boundaries are defined by successive [peaks / zero-crossings of \((\alpha-\bar{\alpha})\)], and the resulting \(W_n\) is plotted against time at the end of each cycle. We adopt the convention that \(W>0\) indicates net aerodynamic energy input to the motion (negative damping), while \(W<0\) indicates net dissipation (positive damping). The \(C_M\)-\(\alpha\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.</textarea>
-        </div>
-      </article>
-
-      <article class="item">
-        <h3>4) Figures 1-4: caption quality and plotting layout problems</h3>
+    <!-- English Pane -->
+    <main id="pane-en" class="lang-pane active">
+      <section class="section">
+        <h2>Overall Assessment</h2>
+        <p>This revision is clearly stronger than the earlier version. Major progress is visible in scope definition, case consistency, and evidence generation.</p>
         <ul>
-          <li><strong>4.1 Captions of Figures 2-4 are too similar.</strong> Each caption should explicitly state excitation type, wind speed, and rigid/flexible context.</li>
-          <li><strong>4.2 Legend naming is not manuscript-grade.</strong> Replace internal code names (<code>None</code>, <code>Oye2</code>, <code>BeddoesIncomp</code>, <code>IAGModel</code>) with <code>Static (no DS)</code>, <code>Oye</code>, <code>BL (1st-order)</code>, <code>IAG</code>.</li>
-          <li><strong>4.3 Axis clipping exists in some plots.</strong> Re-export figures so full y-axis labels are visible and punctuation artifacts are removed.</li>
+          <li><strong>Research objective is clearer:</strong> the Introduction now states unified implementation, validation, STFT analysis, and work-per-cycle interpretation.</li>
+          <li><strong>Case definition is now consistent:</strong> <code>k=0.079</code>, <code>\bar{\alpha}=18.5^\circ</code>, and <code>A=10.4^\circ</code> are aligned across sections.</li>
+          <li><strong>Core evidence now exists:</strong> work-per-cycle plots (Figures 1-4) and rigid/flexible spectral comparison (Figures 6-9) create a near-complete narrative.</li>
         </ul>
-      </article>
+        <p>Remaining work should focus on removing placeholders, tightening reproducibility details, and explicitly linking work-per-cycle findings to damping/stability claims.</p>
+      </section>
 
-      <article class="item">
-        <h3>5) Appendix A.4 is empty</h3>
-        <p class="meta"><strong>Location:</strong> PDF p.20, Appendix A.4 "Links and Repositories".</p>
-        <p class="meta"><strong>Action:</strong> Either populate with repository/data/run notes (2-4 lines) or remove the subsection to avoid unfinished appearance.</p>
-      </article>
+      <section class="section">
+        <h2>Must-Fix Revisions <span class="tag must">HIGH PRIORITY</span></h2>
 
-      <article class="item">
-        <h3>6) Citation/reference mismatch undermines rigor</h3>
-        <ul>
-          <li><strong>6.1</strong> Appendix A.5 says "Following Hansen (2004) [18]" but reference [18] is currently a DNV web page. Fix either citation target or sentence wording.</li>
-          <li><strong>6.2</strong> Reference [18] still has placeholder access date <code>2024-XX-XX</code>. Replace with a real date.</li>
-        </ul>
-      </article>
+        <article class="item">
+          <h3>1) Abstract is currently empty</h3>
+          <p class="meta"><strong>Location:</strong> PDF p.2, under "Abstract".</p>
+          <p class="meta"><strong>Why:</strong> This directly weakens first-pass scientific credibility and presentation quality.</p>
+          <p class="meta"><strong>Action:</strong> Add one 150-220 word abstract covering models/benchmark, extra analysis, key findings, and recommendation boundary.</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>Paste-ready wording (Abstract skeleton)</strong>
+              <button class="copy-btn" data-copy="en-tpl-1">Copy</button>
+            </div>
+            <textarea id="en-tpl-1" readonly>We implemented the Oye, Beddoes--Leishman (BL), and IAG dynamic stall models in a consistent framework and validated their \(C_L\), \(C_D\), and \(C_M\) hysteresis predictions against the NREL/OSU S809 benchmark at \(k=0.079\) and \(\alpha=18.5^\circ \pm 10.4^\circ\). We then quantified cycle-averaged aerodynamic work \(W=\oint C_M\,d\alpha\) to assess the tendency for negative/positive aerodynamic damping, and performed STFT-based time-frequency analysis on rigid-model outputs and a public flexible-blade dataset. Under the examined conditions, [key finding 1] and [key finding 2]. These results suggest that [recommendation to DNV], while [limitations and applicability boundary].</textarea>
+          </div>
+        </article>
 
-      <article class="item">
-        <h3>7) Appendix Figure 12 caption is inconsistent</h3>
-        <p class="meta"><strong>Location:</strong> PDF p.22, Figure 12.</p>
-        <p class="meta"><strong>Issue:</strong> Figure title indicates flexible static case, but caption says rigid airfoil.</p>
-        <p class="meta"><strong>Action:</strong> Revise to "flexible airfoil/blade (static)" and keep terminology aligned with Figure 10 (rigid static).</p>
-      </article>
-    </section>
+        <article class="item">
+          <h3>2) Placeholder/internal-note text still appears in the report</h3>
 
-    <section class="section" id="recommended">
-      <h2>Recommended Improvements <span class="tag should">SCORE UPLIFT</span></h2>
+          <p class="meta"><strong>2.1 Location:</strong> PDF p.13, Section 4.2: "see add the OTHER STUFF TO APPENDIX".</p>
+          <p class="meta"><strong>Action:</strong> Remove it or replace it with a traceable appendix reference.</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>Paste-ready wording (Section 4.2)</strong>
+              <button class="copy-btn" data-copy="en-tpl-2">Copy</button>
+            </div>
+            <textarea id="en-tpl-2" readonly>The static and Oye cases are included in Appendix A.6 (Figures 10-13) as baselines; the main discussion therefore focuses on BL and IAG, which are more relevant for wind-turbine applications under strongly unsteady conditions.</textarea>
+          </div>
 
-      <article class="item">
-        <h3>8) Add one quantitative validation table</h3>
-        <p class="meta"><strong>Location:</strong> PDF p.13, Section 4.1.</p>
-        <p class="meta"><strong>Action:</strong> Add RMSE/MAE table for <code>C_L(\alpha)</code>, <code>C_D(\alpha)</code>, <code>C_M(\alpha)</code> (optionally split upstroke/downstroke), or peak-error metrics.</p>
-      </article>
+          <p class="meta"><strong>2.2 Location:</strong> PDF p.17, Discussion: "GAP FOR CAROLINE ADD THE WORK PER CYCLE ANALYSIS PLEASE".</p>
+          <p class="meta"><strong>Action:</strong> Replace with real work-per-cycle interpretation tied to Figures 1-4 and Figures 8-9.</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>Paste-ready wording (Work-per-cycle implications)</strong>
+              <button class="copy-btn" data-copy="en-tpl-3">Copy</button>
+            </div>
+            <textarea id="en-tpl-3" readonly>Figures 1-4 quantify cycle-by-cycle aerodynamic work \(W=\oint C_M\,d\alpha\) under prescribed excitation. Using the sign convention \(W>0\) as net aerodynamic energy input to the motion (negative damping) and \(W<0\) as net dissipation (positive damping), the BL model exhibits [persistent positive \(W\) / onset after \(t\approx\cdots\) / resonance amplification], whereas the IAG response remains [near zero / negative / bounded] across the same conditions. This is consistent with the flexible-blade STFT results: the BL case shows a broadband energy burst around \(t\approx 65\text{--}75\,\mathrm{s}\) (Figure 8), while the IAG case remains dominated by discrete harmonics (Figure 9). Importantly, \(W\) here is a model-based indicator under prescribed motion and may be affected by numerical stabilisation (e.g., amplitude limiting in IAG); therefore we interpret the work trends as comparative evidence rather than a direct physical damping measurement.</textarea>
+          </div>
 
-      <article class="item">
-        <h3>9) Disclose IAG gating/amplitude-limiting parameters</h3>
-        <p class="meta"><strong>Location:</strong> PDF p.9, Section 3.3.</p>
-        <p class="meta"><strong>Action:</strong> Specify threshold/limiter rules and at least one sentence on sensitivity.</p>
-      </article>
+          <p class="meta"><strong>2.3 Location:</strong> PDF p.19, Appendix A.3 first paragraph (self-negating wording).</p>
+          <p class="meta"><strong>Action:</strong> Remove the section, or replace it with objective supporting language.</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>Paste-ready wording (Appendix A.3)</strong>
+              <button class="copy-btn" data-copy="en-tpl-4">Copy</button>
+            </div>
+            <textarea id="en-tpl-4" readonly>This appendix provides supplementary stability-related derivations for completeness. These results are not required for the main conclusions in Sections 4-5 but are included to support reproducibility and future extensions.</textarea>
+          </div>
+        </article>
 
-      <article class="item">
-        <h3>10) Fix sentence break across page in Section 4.2</h3>
-        <p class="meta"><strong>Location:</strong> PDF p.13 to p.14 ("This is consistent ...").</p>
-        <p class="meta"><strong>Action:</strong> Reflow paragraph or reposition figure to avoid split sentence continuity.</p>
-      </article>
-    </section>
+        <article class="item">
+          <h3>3) Work-per-cycle method is under-specified for reproducibility</h3>
+          <p class="meta"><strong>Location:</strong> PDF p.10, Section 3.5 (after Eq. 15).</p>
+          <p class="meta"><strong>Missing details:</strong> cycle boundary rule, discrete integration method, sign convention, and why <code>C_M-\alpha</code> is used.</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>Paste-ready wording (method detail)</strong>
+              <button class="copy-btn" data-copy="en-tpl-5">Copy</button>
+            </div>
+            <textarea id="en-tpl-5" readonly>In practice, \(W\) is computed once per excitation cycle using the discrete time series \((\alpha_i, C_{M,i})\) and a trapezoidal approximation of \(\oint C_M\,d\alpha\). Cycle boundaries are defined by successive [peaks / zero-crossings of \((\alpha-\bar{\alpha})\)], and the resulting \(W_n\) is plotted against time at the end of each cycle. We adopt the convention that \(W>0\) indicates net aerodynamic energy input to the motion (negative damping), while \(W<0\) indicates net dissipation (positive damping). The \(C_M\)-\(\alpha\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.</textarea>
+          </div>
+        </article>
 
-    <section class="section" id="optional">
-      <h2>Optional High-Value Add-on <span class="tag plus">IF TIME ALLOWS</span></h2>
+        <article class="item">
+          <h3>4) Figures 1-4: caption quality and plotting layout issues</h3>
+          <ul>
+            <li><strong>4.1</strong> Figures 2-4 have near-identical captions. Each caption should state excitation type, wind speed, and rigid/flexible context.</li>
+            <li><strong>4.2</strong> Replace internal legend names (<code>None</code>, <code>Oye2</code>, <code>BeddoesIncomp</code>, <code>IAGModel</code>) with manuscript-grade names: <code>Static (no DS)</code>, <code>Oye</code>, <code>BL (1st-order)</code>, <code>IAG</code>.</li>
+            <li><strong>4.3</strong> Re-export figures to remove axis clipping and punctuation artifacts.</li>
+          </ul>
+        </article>
 
-      <article class="item">
-        <h3>11) Add a DNV-facing model-selection mini matrix</h3>
-        <p class="meta"><strong>Suggested placement:</strong> end of Discussion (around report p.16).</p>
-        <ul>
-          <li><strong>BL:</strong> stronger nonlinear/broadband response; useful for instability/extreme-load screening; potentially more numerically sensitive.</li>
-          <li><strong>IAG:</strong> more bounded/stable for long runs and fatigue studies; note that limiting/gating may suppress transients.</li>
-          <li><strong>Oye:</strong> baseline model for weakly unsteady reference comparisons.</li>
-        </ul>
-      </article>
-    </section>
+        <article class="item">
+          <h3>5) Appendix A.4 is empty</h3>
+          <p class="meta"><strong>Location:</strong> PDF p.20, "Links and Repositories".</p>
+          <p class="meta"><strong>Action:</strong> Add 2-4 lines (repository, data sources, run notes), or remove the subsection entirely.</p>
+        </article>
 
-    <section class="section" id="checklist">
-      <h2>Final Submission Checklist</h2>
-      <ol class="checklist">
-        <li>Fill the Abstract on PDF p.2.</li>
-        <li>Remove/replace all placeholder text (PDF p.13, p.17, Appendix A.3).</li>
-        <li>Write work-per-cycle method + interpretation into Sections 3.5 and 4-5 to support damping/stability claims.</li>
-        <li>Correct Appendix A.5 citation mapping and Figure 12 caption consistency.</li>
-      </ol>
+        <article class="item">
+          <h3>6) Citation/reference mismatch</h3>
+          <ul>
+            <li><strong>6.1</strong> Appendix A.5 says "Following Hansen (2004) [18]", but [18] is currently a DNV webpage. Fix citation-source alignment.</li>
+            <li><strong>6.2</strong> Reference [18] still uses placeholder access date <code>2024-XX-XX</code>. Replace with a real date.</li>
+          </ul>
+        </article>
 
-      <div class="note">
-        Consistency check before final export: ensure the sign convention for \(W\) used in code, captions, and discussion is identical throughout.
-      </div>
-    </section>
+        <article class="item">
+          <h3>7) Appendix Figure 12 caption mismatch</h3>
+          <p class="meta"><strong>Location:</strong> PDF p.22, Figure 12.</p>
+          <p class="meta"><strong>Issue:</strong> Figure title indicates flexible static case, caption says rigid airfoil.</p>
+          <p class="meta"><strong>Action:</strong> Change caption to flexible airfoil/blade static wording, aligned with Figure 10 (rigid static).</p>
+        </article>
+      </section>
 
-    <textarea id="full-feedback" hidden readonly>FULL STRUCTURED FEEDBACK FOR MDM3___DNV (6).pdf
+      <section class="section">
+        <h2>Recommended Improvements <span class="tag should">SCORE UPLIFT</span></h2>
+
+        <article class="item">
+          <h3>8) Add one quantitative validation table</h3>
+          <p class="meta"><strong>Location:</strong> PDF p.13, Section 4.1.</p>
+          <p class="meta"><strong>Action:</strong> Add RMSE/MAE table for <code>C_L(\alpha)</code>, <code>C_D(\alpha)</code>, <code>C_M(\alpha)</code> (optionally upstroke/downstroke), or peak-error metrics.</p>
+        </article>
+
+        <article class="item">
+          <h3>9) Disclose IAG gating and amplitude-limiting settings</h3>
+          <p class="meta"><strong>Location:</strong> PDF p.9, Section 3.3.</p>
+          <p class="meta"><strong>Action:</strong> State threshold/limiter values and add one short sensitivity note.</p>
+        </article>
+
+        <article class="item">
+          <h3>10) Fix sentence break across page in Section 4.2</h3>
+          <p class="meta"><strong>Location:</strong> PDF p.13 to p.14 ("This is consistent ...").</p>
+          <p class="meta"><strong>Action:</strong> Reflow paragraph or move figure to avoid broken sentence continuity.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>Optional High-Value Add-on <span class="tag plus">IF TIME ALLOWS</span></h2>
+        <article class="item">
+          <h3>11) Add a DNV-facing model-selection mini matrix</h3>
+          <p class="meta"><strong>Suggested placement:</strong> end of Discussion (around report p.16).</p>
+          <ul>
+            <li><strong>BL:</strong> stronger nonlinear/broadband response; useful for instability/extreme-load screening; potentially more numerically sensitive.</li>
+            <li><strong>IAG:</strong> more bounded/stable for long runs/fatigue studies; note that limiting/gating may suppress transients.</li>
+            <li><strong>Oye:</strong> baseline model for weakly unsteady reference comparison.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>Final Submission Checklist</h2>
+        <ol>
+          <li>Fill the abstract on PDF p.2.</li>
+          <li>Remove/replace all placeholder text (PDF p.13, p.17, Appendix A.3).</li>
+          <li>Write work-per-cycle method + interpretation into Sections 3.5 and 4-5 to support damping/stability claims.</li>
+          <li>Fix Appendix A.5 citation mapping and Figure 12 caption consistency.</li>
+        </ol>
+        <div class="note">Consistency check before final export: ensure the sign convention for \(W\) is identical in code, captions, and discussion text.</div>
+      </section>
+
+      <textarea id="full-en" hidden readonly>FULL STRUCTURED FEEDBACK FOR MDM3___DNV (6).pdf
 
 Overall Assessment
 - Research objective is much clearer in the updated version.
@@ -445,14 +469,264 @@ This appendix provides supplementary stability-related derivations for completen
 
 Paste-Ready Block 5 (Section 3.5 method detail)
 In practice, \(W\) is computed once per excitation cycle using the discrete time series \((\alpha_i, C_{M,i})\) and a trapezoidal approximation of \(\oint C_M\,d\alpha\). Cycle boundaries are defined by successive [peaks / zero-crossings of \((\alpha-\bar{\alpha})\)], and the resulting \(W_n\) is plotted against time at the end of each cycle. We adopt the convention that \(W>0\) indicates net aerodynamic energy input to the motion (negative damping), while \(W<0\) indicates net dissipation (positive damping). The \(C_M\)-\(\alpha\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.</textarea>
+    </main>
 
-    <footer>
-      Best compatibility: Chrome/Edge/Safari on HTTPS. If clipboard permission is blocked, select the target text area and press <strong>Cmd/Ctrl + C</strong>.
-    </footer>
+    <!-- Chinese Pane -->
+    <main id="pane-zh" class="lang-pane">
+      <section class="section">
+        <h2>总体评价</h2>
+        <p>这版报告相比之前有明显提升，整体框架已经接近闭环。当前重点是把“未完成痕迹”和“可复现性短板”补齐，让结论更有说服力。</p>
+        <ul>
+          <li><strong>研究目标更清晰：</strong>Introduction 已明确统一实现、实验验证、STFT 分析以及 work-per-cycle 的解释路径。</li>
+          <li><strong>工况定义基本统一：</strong><code>k=0.079</code>、<code>\bar{\alpha}=18.5^\circ</code>、<code>A=10.4^\circ</code> 在多处保持一致。</li>
+          <li><strong>证据链已经搭起来：</strong>Figures 1-4 的 work-per-cycle 与 Figures 6-9 的 rigid/flexible 频谱对比，叙事主线成立。</li>
+        </ul>
+        <p>下一步建议集中在：清理占位符、修正引用对应关系、补全 work-per-cycle 方法细节，并把其结论明确写进 Results/Discussion。</p>
+      </section>
+
+      <section class="section">
+        <h2>必改项 <span class="tag must">高优先级</span></h2>
+
+        <article class="item">
+          <h3>1）Abstract 目前为空</h3>
+          <p class="meta"><strong>位置：</strong>PDF 第 2 页，Abstract 标题下为空白。</p>
+          <p class="meta"><strong>影响：</strong>会直接影响首印象与科学论证完整性。</p>
+          <p class="meta"><strong>建议：</strong>补一段 150-220 词摘要，覆盖：模型与基准、额外分析、核心发现、给 DNV 的建议边界。</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>可直接粘贴（英文模板）</strong>
+              <button class="copy-btn" data-copy="zh-tpl-1">复制</button>
+            </div>
+            <textarea id="zh-tpl-1" readonly>We implemented the Oye, Beddoes--Leishman (BL), and IAG dynamic stall models in a consistent framework and validated their \(C_L\), \(C_D\), and \(C_M\) hysteresis predictions against the NREL/OSU S809 benchmark at \(k=0.079\) and \(\alpha=18.5^\circ \pm 10.4^\circ\). We then quantified cycle-averaged aerodynamic work \(W=\oint C_M\,d\alpha\) to assess the tendency for negative/positive aerodynamic damping, and performed STFT-based time-frequency analysis on rigid-model outputs and a public flexible-blade dataset. Under the examined conditions, [key finding 1] and [key finding 2]. These results suggest that [recommendation to DNV], while [limitations and applicability boundary].</textarea>
+          </div>
+        </article>
+
+        <article class="item">
+          <h3>2）正文仍有占位符 / 内部备注</h3>
+
+          <p class="meta"><strong>2.1 位置：</strong>PDF 第 13 页 Section 4.2："see add the OTHER STUFF TO APPENDIX"。</p>
+          <p class="meta"><strong>建议：</strong>删除，或替换为可追溯的 Appendix 引用句。</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>可直接粘贴（英文模板）</strong>
+              <button class="copy-btn" data-copy="zh-tpl-2">复制</button>
+            </div>
+            <textarea id="zh-tpl-2" readonly>The static and Oye cases are included in Appendix A.6 (Figures 10-13) as baselines; the main discussion therefore focuses on BL and IAG, which are more relevant for wind-turbine applications under strongly unsteady conditions.</textarea>
+          </div>
+
+          <p class="meta"><strong>2.2 位置：</strong>PDF 第 17 页 Discussion："GAP FOR CAROLINE ADD THE WORK PER CYCLE ANALYSIS PLEASE"。</p>
+          <p class="meta"><strong>建议：</strong>用真实的 work-per-cycle 解释段替换，并和 Figure 1-4、Figure 8-9 对齐。</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>可直接粘贴（英文模板）</strong>
+              <button class="copy-btn" data-copy="zh-tpl-3">复制</button>
+            </div>
+            <textarea id="zh-tpl-3" readonly>Figures 1-4 quantify cycle-by-cycle aerodynamic work \(W=\oint C_M\,d\alpha\) under prescribed excitation. Using the sign convention \(W>0\) as net aerodynamic energy input to the motion (negative damping) and \(W<0\) as net dissipation (positive damping), the BL model exhibits [persistent positive \(W\) / onset after \(t\approx\cdots\) / resonance amplification], whereas the IAG response remains [near zero / negative / bounded] across the same conditions. This is consistent with the flexible-blade STFT results: the BL case shows a broadband energy burst around \(t\approx 65\text{--}75\,\mathrm{s}\) (Figure 8), while the IAG case remains dominated by discrete harmonics (Figure 9). Importantly, \(W\) here is a model-based indicator under prescribed motion and may be affected by numerical stabilisation (e.g., amplitude limiting in IAG); therefore we interpret the work trends as comparative evidence rather than a direct physical damping measurement.</textarea>
+          </div>
+
+          <p class="meta"><strong>2.3 位置：</strong>PDF 第 19 页 Appendix A.3 第一段语气不专业（自我否定）。</p>
+          <p class="meta"><strong>建议：</strong>若保留该节，改为客观说明其补充价值；若无必要可删节。</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>可直接粘贴（英文模板）</strong>
+              <button class="copy-btn" data-copy="zh-tpl-4">复制</button>
+            </div>
+            <textarea id="zh-tpl-4" readonly>This appendix provides supplementary stability-related derivations for completeness. These results are not required for the main conclusions in Sections 4-5 but are included to support reproducibility and future extensions.</textarea>
+          </div>
+        </article>
+
+        <article class="item">
+          <h3>3）Work-per-cycle 方法定义还不够可复现</h3>
+          <p class="meta"><strong>位置：</strong>PDF 第 10 页 Section 3.5（Eq.15 后）。</p>
+          <p class="meta"><strong>缺失内容：</strong>周期划分规则、离散积分方式、符号约定、为何使用 <code>C_M-\alpha</code> 回线。</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>可直接粘贴（英文模板）</strong>
+              <button class="copy-btn" data-copy="zh-tpl-5">复制</button>
+            </div>
+            <textarea id="zh-tpl-5" readonly>In practice, \(W\) is computed once per excitation cycle using the discrete time series \((\alpha_i, C_{M,i})\) and a trapezoidal approximation of \(\oint C_M\,d\alpha\). Cycle boundaries are defined by successive [peaks / zero-crossings of \((\alpha-\bar{\alpha})\)], and the resulting \(W_n\) is plotted against time at the end of each cycle. We adopt the convention that \(W>0\) indicates net aerodynamic energy input to the motion (negative damping), while \(W<0\) indicates net dissipation (positive damping). The \(C_M\)-\(\alpha\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.</textarea>
+          </div>
+        </article>
+
+        <article class="item">
+          <h3>4）Figure 1-4 的图注与版式仍需修正</h3>
+          <ul>
+            <li><strong>4.1</strong> Figure 2-4 图注过于相似；每张都应明确 excitation、wind speed、rigid/flexible 情境。</li>
+            <li><strong>4.2</strong> 图例建议统一为学术命名：<code>Static (no DS)</code>、<code>Oye</code>、<code>BL (1st-order)</code>、<code>IAG</code>。</li>
+            <li><strong>4.3</strong> 部分图存在轴标签裁切，需重新导出并留足边距。</li>
+          </ul>
+        </article>
+
+        <article class="item">
+          <h3>5）Appendix A.4 为空</h3>
+          <p class="meta"><strong>位置：</strong>PDF 第 20 页 "Links and Repositories"。</p>
+          <p class="meta"><strong>建议：</strong>要么补 2-4 行（代码仓库、数据来源、运行说明），要么删掉该小节标题。</p>
+        </article>
+
+        <article class="item">
+          <h3>6）引用与参考文献对应关系有误</h3>
+          <ul>
+            <li><strong>6.1</strong> Appendix A.5 写的是 "Following Hansen (2004) [18]"，但 [18] 目前是 DNV 页面，需修正对应关系。</li>
+            <li><strong>6.2</strong> Reference [18] 访问日期仍是占位符 <code>2024-XX-XX</code>，需改为真实日期。</li>
+          </ul>
+        </article>
+
+        <article class="item">
+          <h3>7）Appendix Figure 12 caption 与图题不一致</h3>
+          <p class="meta"><strong>位置：</strong>PDF 第 22 页 Figure 12。</p>
+          <p class="meta"><strong>问题：</strong>图题是 flexible static，caption 却写成 rigid airfoil。</p>
+          <p class="meta"><strong>建议：</strong>统一改为 flexible airfoil/blade (static)，并与 Figure 10（rigid static）术语一致。</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>建议改进项 <span class="tag should">显著提分</span></h2>
+
+        <article class="item">
+          <h3>8）Validation 部分增加一个定量误差表</h3>
+          <p class="meta"><strong>位置：</strong>PDF 第 13 页 Section 4.1。</p>
+          <p class="meta"><strong>建议：</strong>增加 RMSE/MAE（可分 upstroke/downstroke），或采用峰值误差指标表。</p>
+        </article>
+
+        <article class="item">
+          <h3>9）补充 IAG 的 gating / amplitude limiting 参数</h3>
+          <p class="meta"><strong>位置：</strong>PDF 第 9 页 Section 3.3。</p>
+          <p class="meta"><strong>建议：</strong>给出阈值/限幅规则，并补一句敏感性说明，避免“靠调参稳住”的质疑。</p>
+        </article>
+
+        <article class="item">
+          <h3>10）修复 4.2 段落跨页断句</h3>
+          <p class="meta"><strong>位置：</strong>PDF 第 13-14 页（"This is consistent ..." 被拆开）。</p>
+          <p class="meta"><strong>建议：</strong>重排段落或调整图位置，保证语义连续。</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>可选加分项 <span class="tag plus">有余力再做</span></h2>
+        <article class="item">
+          <h3>11）增加面向 DNV 的模型选择小结框</h3>
+          <p class="meta"><strong>建议位置：</strong>Discussion 末尾（约报告 p.16）。</p>
+          <ul>
+            <li><strong>BL：</strong>非线性/宽频响应更强，适合极端工况或不稳定性筛查，但数值敏感性可能更高。</li>
+            <li><strong>IAG：</strong>长时域更稳定，适合疲劳类分析；但限幅/门控可能抑制部分瞬态。</li>
+            <li><strong>Oye：</strong>可作为弱非定常基准模型。</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>提交前四项自检</h2>
+        <ol>
+          <li>补上 Abstract（PDF p.2）。</li>
+          <li>清掉所有占位符和内部备注（PDF p.13、p.17、Appendix A.3）。</li>
+          <li>把 work-per-cycle 的方法定义和结果解释写进核心章节，支撑阻尼/稳定性结论。</li>
+          <li>修正 A.5 引用与 Figure 12 caption 的一致性问题。</li>
+        </ol>
+        <div class="note">最终导出前请统一核对：代码、图注、正文中 <code>W</code> 的符号定义必须一致。</div>
+      </section>
+
+      <textarea id="full-zh" hidden readonly>《MDM3___DNV (6).pdf》完整书面反馈（中文版）
+
+总体评价
+- 研究目标表达更清晰，主线更完整。
+- 工况定义基本统一：k=0.079、alpha_bar=18.5°、A=10.4°。
+- 已形成 work-per-cycle 与 rigid/flexible 频谱对比的证据链。
+- 下一步重点：清除占位符、补足可复现细节、修正引用一致性，并把 work-per-cycle 结论明确写进核心讨论。
+
+必改项
+1）Abstract 为空（PDF p.2）
+建议补一段 150-220 词摘要，包含模型与验证数据、额外分析、关键发现、给 DNV 的建议边界。
+
+2）正文存在占位符或内部备注
+2.1 p.13 Section 4.2 占位符应删除或替换为 Appendix 引用。
+2.2 p.17 Discussion GAP 占位符应替换为真实的 work-per-cycle 解释段。
+2.3 p.19 Appendix A.3 自我否定语气应改为客观说明，或删除该节。
+
+3）Work-per-cycle 方法还不够可复现（p.10 Section 3.5）
+需补充：周期分割规则、离散积分方法、符号约定、为何选择 C_M-alpha。
+
+4）Figure 1-4 图注与图形质量问题
+4.1 Figure 2-4 图注应明确激励类型、风速、rigid/flexible。
+4.2 图例应改为论文术语（Static/Oye/BL/IAG）。
+4.3 修复坐标轴裁切并重新导出图片。
+
+5）Appendix A.4 为空（p.20）
+要么补链接/数据/运行说明，要么删除该小节。
+
+6）引用对应关系错误（p.20, p.25）
+6.1 “Hansen (2004) [18]” 与当前 [18] 条目不匹配。
+6.2 [18] 访问日期不能保留 2024-XX-XX 占位符。
+
+7）Figure 12 caption 与图题不一致（p.22）
+应改为 flexible static 描述并与 Figure 10 术语一致。
+
+建议改进项
+8）Validation 增加定量误差表（RMSE/MAE 或峰值误差）。
+9）补充 IAG 的 gating / amplitude limiting 参数及敏感性说明。
+10）修复 4.2 跨页断句。
+
+可选加分项
+11）补一个面向 DNV 的模型选择小结（BL/IAG/Oye 使用边界）。
+
+提交前四项自检
+1. 补 Abstract。
+2. 清占位符。
+3. 写实 work-per-cycle 方法与结论衔接。
+4. 修正引用与图注一致性。</textarea>
+    </main>
+
+    <footer id="footer-text">Best compatibility: modern browsers over HTTPS. If clipboard access is blocked, select the target text and press Cmd/Ctrl+C.</footer>
   </div>
 
   <script>
+    const state = { lang: 'en' };
+
+    const i18n = {
+      en: {
+        heroTitle: 'Full Structured Feedback for <code>MDM3___DNV (6).pdf</code>',
+        heroSubtitle: 'Bilingual review page with complete feedback, polished formatting, and one-click copy actions.',
+        toggle: '切换中文',
+        copyFull: 'Copy Full Feedback (Text)',
+        copyTemplates: 'Copy All Paste-Ready Blocks',
+        expand: 'Expand Templates',
+        compact: 'Compact Templates',
+        footer: 'Best compatibility: modern browsers over HTTPS. If clipboard access is blocked, select the target text and press Cmd/Ctrl+C.',
+        ready: 'Ready.',
+        copiedTemplate: (n) => `Copied template ${n}.`,
+        copiedTemplatesAll: 'Copied all paste-ready blocks.',
+        copiedFull: 'Copied full feedback text.',
+        expanded: 'Expanded all template blocks.',
+        compacted: 'Set compact template view.',
+        blocked: 'Clipboard blocked. Target text selected; press Cmd/Ctrl+C.'
+      },
+      zh: {
+        heroTitle: '《<code>MDM3___DNV (6).pdf</code>》完整书面反馈',
+        heroSubtitle: '双语版页面，含完整反馈内容、优化排版与一键复制能力。',
+        toggle: 'Switch to English',
+        copyFull: '复制整份反馈文本',
+        copyTemplates: '复制全部可粘贴模板',
+        expand: '展开模板文本',
+        compact: '紧凑显示模板',
+        footer: '建议在 HTTPS 浏览器中使用。若复制权限被拦截，请选中文本后按 Cmd/Ctrl+C。',
+        ready: '已就绪。',
+        copiedTemplate: (n) => `已复制模板 ${n}。`,
+        copiedTemplatesAll: '已复制全部可粘贴模板。',
+        copiedFull: '已复制整份反馈文本。',
+        expanded: '已展开全部模板文本框。',
+        compacted: '已切换为紧凑显示。',
+        blocked: '浏览器限制了剪贴板访问，已选中文本，请按 Cmd/Ctrl+C。'
+      }
+    };
+
     const statusEl = document.getElementById('status');
+    const heroTitleEl = document.getElementById('hero-title');
+    const heroSubtitleEl = document.getElementById('hero-subtitle');
+    const langToggleEl = document.getElementById('lang-toggle');
+    const copyFullEl = document.getElementById('copy-full');
+    const copyTemplatesEl = document.getElementById('copy-templates');
+    const expandAllEl = document.getElementById('expand-all');
+    const compactAllEl = document.getElementById('compact-all');
+    const footerEl = document.getElementById('footer-text');
 
     function setStatus(message, kind = '') {
       statusEl.textContent = message;
@@ -467,61 +741,97 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       return false;
     }
 
-    async function copyFromTextarea(id, label) {
-      const ta = document.getElementById(id);
-      if (!ta) {
-        setStatus('Target text not found.', 'warn');
-        return;
-      }
+    function activePane() {
+      return document.getElementById(`pane-${state.lang}`);
+    }
+
+    function activeTemplates() {
+      return [...activePane().querySelectorAll('.template textarea')];
+    }
+
+    function switchLanguage(lang) {
+      state.lang = lang;
+
+      document.getElementById('pane-en').classList.toggle('active', lang === 'en');
+      document.getElementById('pane-zh').classList.toggle('active', lang === 'zh');
+
+      const t = i18n[lang];
+      heroTitleEl.innerHTML = t.heroTitle;
+      heroSubtitleEl.textContent = t.heroSubtitle;
+      langToggleEl.textContent = t.toggle;
+      copyFullEl.textContent = t.copyFull;
+      copyTemplatesEl.textContent = t.copyTemplates;
+      expandAllEl.textContent = t.expand;
+      compactAllEl.textContent = t.compact;
+      footerEl.textContent = t.footer;
+      setStatus(t.ready);
+      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+    }
+
+    async function copyFromTextarea(textarea, copiedMsg) {
+      const t = i18n[state.lang];
       try {
-        const ok = await copyText(ta.value);
+        const ok = await copyText(textarea.value);
         if (ok) {
-          setStatus(`Copied ${label}.`, 'ok');
+          setStatus(copiedMsg, 'ok');
         } else {
-          ta.focus();
-          ta.select();
-          setStatus(`Clipboard blocked. ${label} selected; press Cmd/Ctrl+C.`, 'warn');
+          textarea.focus();
+          textarea.select();
+          setStatus(t.blocked, 'warn');
         }
       } catch (_) {
-        ta.focus();
-        ta.select();
-        setStatus(`Copy failed. ${label} selected; press Cmd/Ctrl+C.`, 'warn');
+        textarea.focus();
+        textarea.select();
+        setStatus(t.blocked, 'warn');
       }
     }
 
-    document.querySelectorAll('.copy-btn').forEach((btn, i) => {
-      btn.addEventListener('click', () => copyFromTextarea(btn.dataset.copy, `template ${i + 1}`));
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.copy-btn');
+      if (!btn) return;
+      const target = document.getElementById(btn.dataset.copy);
+      if (!target) return;
+      const templates = activeTemplates();
+      const idx = templates.findIndex((x) => x.id === target.id);
+      const n = idx >= 0 ? idx + 1 : '?';
+      copyFromTextarea(target, i18n[state.lang].copiedTemplate(n));
     });
 
-    document.getElementById('copy-templates').addEventListener('click', async () => {
-      const templates = [...document.querySelectorAll('.template textarea')].map((t, i) => `Template ${i + 1}\n${t.value}`);
+    langToggleEl.addEventListener('click', () => {
+      switchLanguage(state.lang === 'en' ? 'zh' : 'en');
+    });
+
+    copyFullEl.addEventListener('click', () => {
+      const target = document.getElementById(state.lang === 'en' ? 'full-en' : 'full-zh');
+      copyFromTextarea(target, i18n[state.lang].copiedFull);
+    });
+
+    copyTemplatesEl.addEventListener('click', async () => {
+      const templates = activeTemplates();
+      const merged = templates.map((ta, i) => `Template ${i + 1}\n${ta.value}`).join('\n\n');
       try {
-        const ok = await copyText(templates.join('\n\n'));
+        const ok = await copyText(merged);
         if (ok) {
-          setStatus('Copied all paste-ready blocks.', 'ok');
+          setStatus(i18n[state.lang].copiedTemplatesAll, 'ok');
         } else {
-          setStatus('Clipboard blocked. Copy blocks individually.', 'warn');
+          setStatus(i18n[state.lang].blocked, 'warn');
         }
       } catch (_) {
-        setStatus('Copy all templates failed.', 'warn');
+        setStatus(i18n[state.lang].blocked, 'warn');
       }
     });
 
-    document.getElementById('copy-full').addEventListener('click', () => copyFromTextarea('full-feedback', 'full feedback text'));
-
-    document.getElementById('expand-all').addEventListener('click', () => {
-      document.querySelectorAll('.template textarea').forEach((el) => {
-        el.style.minHeight = '240px';
-      });
-      setStatus('Expanded all template blocks.');
+    expandAllEl.addEventListener('click', () => {
+      activeTemplates().forEach((ta) => { ta.style.minHeight = '240px'; });
+      setStatus(i18n[state.lang].expanded);
     });
 
-    document.getElementById('compact-all').addEventListener('click', () => {
-      document.querySelectorAll('.template textarea').forEach((el) => {
-        el.style.minHeight = '120px';
-      });
-      setStatus('Set compact template view.');
+    compactAllEl.addEventListener('click', () => {
+      activeTemplates().forEach((ta) => { ta.style.minHeight = '120px'; });
+      setStatus(i18n[state.lang].compacted);
     });
+
+    switchLanguage('en');
   </script>
 </body>
 </html>
