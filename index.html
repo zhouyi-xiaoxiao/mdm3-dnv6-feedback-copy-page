@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MDM3 DNV6 Feedback - Paste-Ready Blocks</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --ink: #1e2a3a;
+      --muted: #5b6677;
+      --accent: #0b6bcb;
+      --accent-2: #084f96;
+      --line: #d5deea;
+      --ok: #0b8f5d;
+      --warn: #b36d00;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 10% 0%, #ffffff 0%, var(--bg) 70%);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #0b6bcb 0%, #1f86e3 100%);
+      color: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(11, 107, 203, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 1.6rem;
+      letter-spacing: 0.2px;
+    }
+
+    .hero p { margin: 0; opacity: 0.95; }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      margin: 14px 0 18px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .08s ease, box-shadow .15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent-2);
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(14, 34, 68, 0.05);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: #163d68;
+    }
+
+    .meta {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: "JetBrains Mono", "Menlo", "Consolas", monospace;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      resize: vertical;
+      background: #fbfdff;
+      color: #102030;
+    }
+
+    .row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .status.ok { color: var(--ok); }
+    .status.warn { color: var(--warn); }
+
+    footer {
+      margin: 20px 0 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>MDM3 DNV6 Feedback: Paste-Ready Blocks</h1>
+      <p>Click <strong>Copy</strong> on any block, then paste directly into your report source. Built for browser use (GitHub Pages).</p>
+    </section>
+
+    <div class="toolbar">
+      <button class="btn-primary" id="copy-all">Copy All Blocks</button>
+      <button id="expand-all">Expand All</button>
+      <button id="collapse-all">Compact</button>
+      <span id="global-status" class="status">Ready.</span>
+    </div>
+
+    <main id="blocks" class="grid"></main>
+
+    <footer>
+      Tip: if your browser blocks clipboard permission, click in the text area, press <strong>Cmd/Ctrl + A</strong>, then <strong>Cmd/Ctrl + C</strong>.
+    </footer>
+  </div>
+
+  <script>
+    const blocks = [
+      {
+        title: "Abstract (skeleton)",
+        location: "Use for PDF p.2 Abstract replacement",
+        text: `We implemented the Oye, Beddoes--Leishman (BL), and IAG dynamic stall models in a consistent framework and validated their \\(C_L\\), \\(C_D\\), and \\(C_M\\) hysteresis predictions against the NREL/OSU S809 benchmark at \\(k=0.079\\) and \\(\\alpha=18.5^\\circ \\pm 10.4^\\circ\\). We then quantified cycle-averaged aerodynamic work \\(W=\\oint C_M\\,d\\alpha\\) to assess the tendency for negative/positive aerodynamic damping, and performed STFT-based time--frequency analysis on rigid-model outputs and a public flexible-blade dataset. Under the examined conditions, [key finding 1] and [key finding 2]. These results suggest that [recommendation to DNV], while [limitations and applicability boundary].`
+      },
+      {
+        title: "Section 4.2 placeholder replacement",
+        location: "Use for PDF p.13 internal-note cleanup",
+        text: `The static and Oye cases are included in Appendix A.6 (Figures 10--13) as baselines; the main discussion therefore focuses on BL and IAG, which are more relevant for wind-turbine applications under strongly unsteady conditions.`
+      },
+      {
+        title: "Work-per-cycle implications subsection",
+        location: "Use for PDF p.17 Discussion GAP replacement",
+        text: `Figures 1--4 quantify cycle-by-cycle aerodynamic work \\(W=\\oint C_M\\,d\\alpha\\) under prescribed excitation. Using the sign convention \\(W>0\\) as net aerodynamic energy input to the motion (negative damping) and \\(W<0\\) as net dissipation (positive damping), the BL model exhibits [persistent positive \\(W\\) / onset after \\(t\\approx\\cdots\\) / resonance amplification], whereas the IAG response remains [near zero / negative / bounded] under the same conditions. This is consistent with the flexible-blade STFT results: BL shows a broadband energy burst around \\(t\\approx 65\\text{--}75\\,\\mathrm{s}\\) (Figure 8), while IAG remains dominated by discrete harmonics (Figure 9). Importantly, \\(W\\) here is a model-based indicator under prescribed motion and may be influenced by numerical stabilization (e.g., amplitude limiting in IAG); therefore, we interpret these work trends as comparative evidence rather than a direct physical damping measurement.`
+      },
+      {
+        title: "Appendix A.3 neutral wording",
+        location: "Use for PDF p.19 Appendix tone fix",
+        text: `This appendix provides supplementary stability-related derivations for completeness. These results are not required for the main conclusions in Sections 4--5 but are included to support reproducibility and future extensions.`
+      },
+      {
+        title: "Section 3.5 reproducibility details",
+        location: "Use after Eq. 15 on PDF p.10",
+        text: `In practice, \\(W\\) is computed once per excitation cycle using the discrete time series \\((\\alpha_i, C_{M,i})\\) and a trapezoidal approximation of \\(\\oint C_M\\,d\\alpha\\). Cycle boundaries are defined by successive [peaks / zero-crossings] of \\((\\alpha-\\bar{\\alpha})\\), and the resulting \\(W_n\\) is reported at the end of each cycle. We adopt the convention that \\(W>0\\) indicates net aerodynamic energy input to the motion (negative damping), while \\(W<0\\) indicates net dissipation (positive damping). The \\(C_M\\)-\\(\\alpha\\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.`
+      }
+    ];
+
+    const blocksEl = document.getElementById('blocks');
+    const globalStatus = document.getElementById('global-status');
+
+    function setStatus(msg, kind = '') {
+      globalStatus.textContent = msg;
+      globalStatus.className = `status ${kind}`.trim();
+    }
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+      return false;
+    }
+
+    function makeCard(block, i) {
+      const card = document.createElement('section');
+      card.className = 'card';
+
+      const h2 = document.createElement('h2');
+      h2.textContent = `${i + 1}. ${block.title}`;
+      card.appendChild(h2);
+
+      const meta = document.createElement('p');
+      meta.className = 'meta';
+      meta.textContent = block.location;
+      card.appendChild(meta);
+
+      const ta = document.createElement('textarea');
+      ta.value = block.text;
+      ta.readOnly = true;
+      ta.id = `block-${i}`;
+      card.appendChild(ta);
+
+      const row = document.createElement('div');
+      row.className = 'row';
+
+      const btn = document.createElement('button');
+      btn.className = 'btn-primary';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', async () => {
+        try {
+          const ok = await copyText(ta.value);
+          if (ok) {
+            setStatus(`Copied block ${i + 1}.`, 'ok');
+          } else {
+            ta.focus();
+            ta.select();
+            setStatus(`Clipboard API blocked. Block ${i + 1} selected; press Cmd/Ctrl+C.`, 'warn');
+          }
+        } catch (e) {
+          ta.focus();
+          ta.select();
+          setStatus(`Copy failed. Block ${i + 1} selected; press Cmd/Ctrl+C.`, 'warn');
+        }
+      });
+
+      const local = document.createElement('span');
+      local.className = 'status';
+      local.textContent = `${ta.value.length} chars`;
+
+      row.appendChild(btn);
+      row.appendChild(local);
+      card.appendChild(row);
+
+      return card;
+    }
+
+    blocks.forEach((b, i) => blocksEl.appendChild(makeCard(b, i)));
+
+    document.getElementById('copy-all').addEventListener('click', async () => {
+      const merged = blocks.map((b, i) => `### ${i + 1}. ${b.title}\n${b.text}`).join('\n\n');
+      try {
+        const ok = await copyText(merged);
+        if (ok) {
+          setStatus('Copied all blocks.', 'ok');
+        } else {
+          setStatus('Clipboard API blocked. Copy block-by-block manually.', 'warn');
+        }
+      } catch (_) {
+        setStatus('Copy all failed. Copy block-by-block manually.', 'warn');
+      }
+    });
+
+    document.getElementById('expand-all').addEventListener('click', () => {
+      document.querySelectorAll('textarea').forEach(el => el.style.minHeight = '220px');
+      setStatus('Expanded all text areas.');
+    });
+
+    document.getElementById('collapse-all').addEventListener('click', () => {
+      document.querySelectorAll('textarea').forEach(el => el.style.minHeight = '130px');
+      setStatus('Set compact view.');
+    });
+  </script>
+</body>
+</html>
