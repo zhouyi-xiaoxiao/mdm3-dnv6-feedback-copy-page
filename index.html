@@ -136,6 +136,32 @@
     .status.ok { color: var(--ok); }
     .status.warn { color: var(--warn); }
 
+    .github-star-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid #0a315d;
+      background: #111827;
+      color: #fff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-weight: 650;
+      text-decoration: none;
+      transition: transform .09s ease, box-shadow .12s ease;
+    }
+
+    .github-star-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    }
+
+    .github-star-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
     .reading-layout {
       display: grid;
       grid-template-columns: 260px minmax(0, 1fr);
@@ -500,6 +526,19 @@
     <div class="toolbar">
       <button class="btn-toggle" id="lang-toggle">切换中文</button>
       <button id="source-toggle">Open Floating Source Dock</button>
+      <a
+        id="github-star-link"
+        class="github-star-link"
+        href="https://github.com/zhouyi-xiaoxiao/mdm3-dnv6-feedback-copy-page"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Star this project on GitHub"
+      >
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.67 0 8.2c0 3.62 2.29 6.69 5.47 7.77.4.08.55-.18.55-.4 0-.2-.01-.86-.01-1.56-2.01.44-2.53-.5-2.69-.96-.09-.24-.48-.96-.82-1.15-.28-.16-.68-.54-.01-.55.63-.01 1.08.59 1.23.84.72 1.24 1.87.89 2.33.68.07-.54.28-.89.5-1.09-1.78-.21-3.64-.92-3.64-4.08 0-.9.31-1.64.82-2.22-.08-.21-.36-1.06.08-2.2 0 0 .67-.22 2.2.85.64-.18 1.32-.28 2-.28.68 0 1.36.1 2 .28 1.53-1.07 2.2-.85 2.2-.85.44 1.14.16 1.99.08 2.2.51.58.82 1.31.82 2.22 0 3.17-1.87 3.87-3.65 4.08.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .22.15.49.55.4A8.16 8.16 0 0 0 16 8.2C16 3.67 12.42 0 8 0Z"></path>
+        </svg>
+        <span id="github-star-text">Star on GitHub</span>
+      </a>
       <span id="status" class="status">Ready.</span>
     </div>
 
@@ -1046,6 +1085,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         toggle: '切换中文',
         sourceToggleOpen: 'Open Floating Source Dock',
         sourceToggleClose: 'Hide Floating Source Dock',
+        githubStar: 'Star on GitHub',
         footer: 'Best compatibility: modern browsers over HTTPS. If clipboard access is blocked, select the target text and press Cmd/Ctrl+C.',
         ready: 'Ready.',
         copiedTemplate: (n) => `Copied template ${n}.`,
@@ -1067,6 +1107,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         toggle: 'Switch to English',
         sourceToggleOpen: '打开源码悬浮窗',
         sourceToggleClose: '关闭源码悬浮窗',
+        githubStar: '去 GitHub 点个 Star',
         footer: '建议在 HTTPS 浏览器中使用。若复制权限被拦截，请选中文本后按 Cmd/Ctrl+C。',
         ready: '已就绪。',
         copiedTemplate: (n) => `已复制模板 ${n}。`,
@@ -1089,6 +1130,8 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
     const heroSubtitleEl = document.getElementById('hero-subtitle');
     const langToggleEl = document.getElementById('lang-toggle');
     const sourceToggleEl = document.getElementById('source-toggle');
+    const githubStarLinkEl = document.getElementById('github-star-link');
+    const githubStarTextEl = document.getElementById('github-star-text');
     const dockEl = document.getElementById('source-dock');
     const dockKickerEl = document.getElementById('dock-kicker');
     const dockTitleEl = document.getElementById('dock-title');
@@ -1235,6 +1278,8 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       heroSubtitleEl.textContent = t.heroSubtitle;
       langToggleEl.textContent = t.toggle;
       sourceToggleEl.textContent = state.dockOpen ? t.sourceToggleClose : t.sourceToggleOpen;
+      githubStarTextEl.textContent = t.githubStar;
+      githubStarLinkEl.setAttribute('aria-label', t.githubStar);
       dockKickerEl.textContent = t.dockKicker;
       dockNoteEl.textContent = t.dockNote;
       dockCopyEl.textContent = t.dockCopy;
