@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MDM3 DNV6 - Bilingual Structured Feedback</title>
+  <link rel="icon" href="data:," />
   <script>
     window.MathJax = {
       tex: {
@@ -331,6 +332,87 @@
       min-height: 180px;
     }
 
+    .source-dock {
+      position: fixed;
+      right: 14px;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      width: min(620px, calc(100vw - 24px));
+      max-height: 64vh;
+      z-index: 1200;
+      border: 1px solid #c6d8ee;
+      border-radius: 14px;
+      background: #f7fbff;
+      box-shadow: 0 16px 38px rgba(8, 42, 82, 0.28);
+      padding: 10px;
+      transform: translateY(calc(100% + 20px));
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .source-dock.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .source-dock-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .source-dock-head-text {
+      min-width: 0;
+    }
+
+    .source-dock-kicker {
+      margin: 0 0 3px;
+      font-size: 0.74rem;
+      letter-spacing: .3px;
+      color: #5a6f86;
+      text-transform: uppercase;
+    }
+
+    .source-dock-title {
+      margin: 0;
+      font-size: 0.98rem;
+      color: #1b466f;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .source-dock-note {
+      margin: 3px 0 0;
+      color: #5c6f84;
+      font-size: 0.83rem;
+      line-height: 1.35;
+    }
+
+    .source-dock-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .source-dock-code {
+      margin: 0;
+      border: 1px solid #d4e2f1;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #14293e;
+      padding: 10px;
+      overflow: auto;
+      max-height: 46vh;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: "JetBrains Mono", "Menlo", "Consolas", monospace;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
     textarea {
       width: 100%;
       min-height: 120px;
@@ -383,6 +465,28 @@
       button { padding: 7px 10px; }
       .overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .map-links { grid-template-columns: 1fr; }
+
+      .source-dock {
+        left: 8px;
+        right: 8px;
+        width: auto;
+        max-height: 70vh;
+        padding: 9px;
+      }
+
+      .source-dock-head {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .source-dock-actions {
+        justify-content: flex-end;
+      }
+
+      .source-dock-code {
+        max-height: 43vh;
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -396,9 +500,7 @@
     <div class="toolbar">
       <button class="btn-toggle" id="lang-toggle">切换中文</button>
       <button class="btn-primary" id="copy-full">Copy Full Feedback (Text)</button>
-      <button id="copy-templates">Copy All Paste-Ready Blocks</button>
-      <button id="expand-all">Show Source Panels</button>
-      <button id="compact-all">Hide Source Panels</button>
+      <button id="source-toggle">Open Floating Source Dock</button>
       <span id="status" class="status">Ready.</span>
     </div>
 
@@ -903,11 +1005,32 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       </div>
     </div>
 
+    <aside id="source-dock" class="source-dock" aria-hidden="true">
+      <div class="source-dock-head">
+        <div class="source-dock-head-text">
+          <p id="dock-kicker" class="source-dock-kicker">Floating Source Dock</p>
+          <h4 id="dock-title" class="source-dock-title">Current Template Source</h4>
+          <p id="dock-note" class="source-dock-note">Auto-follows the section nearest to the viewport while scrolling.</p>
+        </div>
+        <div class="source-dock-actions">
+          <button id="dock-copy" class="btn-primary">Copy Source</button>
+          <button id="dock-close">Close</button>
+        </div>
+      </div>
+      <pre id="dock-code" class="source-dock-code"></pre>
+    </aside>
+
     <footer id="footer-text">Best compatibility: modern browsers over HTTPS. If clipboard access is blocked, select the target text and press Cmd/Ctrl+C.</footer>
   </div>
 
   <script>
-    const state = { lang: 'en', sourcePanelsVisible: false };
+    const state = {
+      lang: 'en',
+      dockOpen: false,
+      dockCurrentId: '',
+      dockCurrentText: '',
+      dockRafPending: false
+    };
 
     const i18n = {
       en: {
@@ -915,16 +1038,21 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         heroSubtitle: 'Bilingual review page with complete feedback, polished formatting, and one-click copy actions.',
         toggle: '切换中文',
         copyFull: 'Copy Full Feedback (Text)',
-        copyTemplates: 'Copy All Paste-Ready Blocks',
-        expand: 'Show Source Panels',
-        compact: 'Hide Source Panels',
+        sourceToggleOpen: 'Open Floating Source Dock',
+        sourceToggleClose: 'Hide Floating Source Dock',
         footer: 'Best compatibility: modern browsers over HTTPS. If clipboard access is blocked, select the target text and press Cmd/Ctrl+C.',
         ready: 'Ready.',
         copiedTemplate: (n) => `Copied template ${n}.`,
-        copiedTemplatesAll: 'Copied all paste-ready blocks.',
         copiedFull: 'Copied full feedback text.',
-        expanded: 'Source panels are now visible.',
-        compacted: 'Source panels are now hidden.',
+        dockKicker: 'Floating Source Dock',
+        dockTitlePrefix: 'Current Template Source',
+        dockNote: 'Auto-follows the section nearest to the viewport while scrolling.',
+        dockCopy: 'Copy Source',
+        dockClose: 'Close',
+        dockCopied: 'Copied current source.',
+        dockOpened: 'Floating source dock opened.',
+        dockClosed: 'Floating source dock closed.',
+        dockEmpty: 'No source available in this view.',
         blocked: 'Clipboard blocked. Target text selected; press Cmd/Ctrl+C.',
         templateLabel: 'Template'
       },
@@ -933,16 +1061,21 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         heroSubtitle: '双语版页面，含完整反馈内容、优化排版与一键复制能力。',
         toggle: 'Switch to English',
         copyFull: '复制整份反馈文本',
-        copyTemplates: '复制全部可粘贴模板',
-        expand: '显示源码面板',
-        compact: '隐藏源码面板',
+        sourceToggleOpen: '打开源码悬浮窗',
+        sourceToggleClose: '关闭源码悬浮窗',
         footer: '建议在 HTTPS 浏览器中使用。若复制权限被拦截，请选中文本后按 Cmd/Ctrl+C。',
         ready: '已就绪。',
         copiedTemplate: (n) => `已复制模板 ${n}。`,
-        copiedTemplatesAll: '已复制全部可粘贴模板。',
         copiedFull: '已复制整份反馈文本。',
-        expanded: '已显示源码面板。',
-        compacted: '已隐藏源码面板。',
+        dockKicker: '源码悬浮窗',
+        dockTitlePrefix: '当前模板源码',
+        dockNote: '滚动页面时会自动跟随当前可视区域附近的模板段落。',
+        dockCopy: '复制源码',
+        dockClose: '关闭',
+        dockCopied: '已复制当前源码。',
+        dockOpened: '已打开源码悬浮窗。',
+        dockClosed: '已关闭源码悬浮窗。',
+        dockEmpty: '当前视图暂无可用源码。',
         blocked: '浏览器限制了剪贴板访问，已选中文本，请按 Cmd/Ctrl+C。',
         templateLabel: '模板'
       }
@@ -953,9 +1086,14 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
     const heroSubtitleEl = document.getElementById('hero-subtitle');
     const langToggleEl = document.getElementById('lang-toggle');
     const copyFullEl = document.getElementById('copy-full');
-    const copyTemplatesEl = document.getElementById('copy-templates');
-    const expandAllEl = document.getElementById('expand-all');
-    const compactAllEl = document.getElementById('compact-all');
+    const sourceToggleEl = document.getElementById('source-toggle');
+    const dockEl = document.getElementById('source-dock');
+    const dockKickerEl = document.getElementById('dock-kicker');
+    const dockTitleEl = document.getElementById('dock-title');
+    const dockNoteEl = document.getElementById('dock-note');
+    const dockCopyEl = document.getElementById('dock-copy');
+    const dockCloseEl = document.getElementById('dock-close');
+    const dockCodeEl = document.getElementById('dock-code');
     const footerEl = document.getElementById('footer-text');
 
     function setStatus(message, kind = '') {
@@ -1006,10 +1144,80 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       });
     }
 
-    function applySourcePanelVisibility() {
-      document.querySelectorAll('.source-wrap').forEach((wrap) => {
-        wrap.style.display = state.sourcePanelsVisible ? 'block' : 'none';
+    function listActiveTemplateEntries() {
+      return [...activePane().querySelectorAll('.template')].map((template, index) => {
+        const source = template.querySelector('textarea');
+        const title = template.querySelector('.template-head strong')?.textContent?.trim()
+          || `${i18n[state.lang].templateLabel} ${index + 1}`;
+        return source ? { template, source, title, index } : null;
+      }).filter(Boolean);
+    }
+
+    function pickClosestVisibleTemplate(entries) {
+      if (!entries.length) return null;
+      const anchorY = Math.min(180, window.innerHeight * 0.28);
+      let best = null;
+      let bestScore = Number.POSITIVE_INFINITY;
+
+      entries.forEach((entry) => {
+        const rect = entry.template.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        const score = Math.abs(rect.top - anchorY);
+        if (score < bestScore) {
+          bestScore = score;
+          best = entry;
+        }
       });
+
+      if (best) return best;
+      return entries.find((entry) => entry.template.getBoundingClientRect().top >= 0) || entries[entries.length - 1];
+    }
+
+    function updateDockContent(entry, force = false) {
+      const t = i18n[state.lang];
+      if (!entry) {
+        state.dockCurrentId = '';
+        state.dockCurrentText = '';
+        dockTitleEl.textContent = t.dockTitlePrefix;
+        dockCodeEl.textContent = '';
+        return;
+      }
+
+      if (!force && state.dockCurrentId === entry.source.id) return;
+      state.dockCurrentId = entry.source.id;
+      state.dockCurrentText = entry.source.value;
+      dockTitleEl.textContent = `${t.dockTitlePrefix}: ${entry.title}`;
+      dockCodeEl.textContent = entry.source.value;
+    }
+
+    function refreshDockByViewport(force = false) {
+      if (!state.dockOpen) return;
+      const entries = listActiveTemplateEntries();
+      const target = pickClosestVisibleTemplate(entries);
+      updateDockContent(target, force);
+    }
+
+    function scheduleDockRefresh() {
+      if (!state.dockOpen) return;
+      if (state.dockRafPending) return;
+      state.dockRafPending = true;
+      requestAnimationFrame(() => {
+        state.dockRafPending = false;
+        refreshDockByViewport();
+      });
+    }
+
+    function setDockOpen(open) {
+      state.dockOpen = open;
+      dockEl.classList.toggle('open', open);
+      dockEl.setAttribute('aria-hidden', open ? 'false' : 'true');
+      sourceToggleEl.textContent = open ? i18n[state.lang].sourceToggleClose : i18n[state.lang].sourceToggleOpen;
+      if (open) {
+        refreshDockByViewport(true);
+        setStatus(i18n[state.lang].dockOpened, 'ok');
+      } else {
+        setStatus(i18n[state.lang].dockClosed);
+      }
     }
 
     function switchLanguage(lang) {
@@ -1025,14 +1233,20 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       heroSubtitleEl.textContent = t.heroSubtitle;
       langToggleEl.textContent = t.toggle;
       copyFullEl.textContent = t.copyFull;
-      copyTemplatesEl.textContent = t.copyTemplates;
-      expandAllEl.textContent = t.expand;
-      compactAllEl.textContent = t.compact;
+      sourceToggleEl.textContent = state.dockOpen ? t.sourceToggleClose : t.sourceToggleOpen;
+      dockKickerEl.textContent = t.dockKicker;
+      dockNoteEl.textContent = t.dockNote;
+      dockCopyEl.textContent = t.dockCopy;
+      dockCloseEl.textContent = t.dockClose;
       footerEl.textContent = t.footer;
       setStatus(t.ready);
       document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
-      applySourcePanelVisibility();
       typesetMath(activePane());
+      if (state.dockOpen) {
+        refreshDockByViewport(true);
+      } else {
+        dockTitleEl.textContent = t.dockTitlePrefix;
+      }
     }
 
     async function copyFromTextarea(textarea, copiedMsg) {
@@ -1085,39 +1299,57 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       copyFromTextarea(target, i18n[state.lang].copiedFull);
     });
 
-    copyTemplatesEl.addEventListener('click', async () => {
-      const templates = activeTemplates();
-      const label = i18n[state.lang].templateLabel;
-      const merged = templates.map((ta, i) => `${label} ${i + 1}\n${ta.value}`).join('\n\n');
+    sourceToggleEl.addEventListener('click', () => {
+      setDockOpen(!state.dockOpen);
+    });
+
+    dockCloseEl.addEventListener('click', () => {
+      setDockOpen(false);
+    });
+
+    dockCopyEl.addEventListener('click', async () => {
+      const text = state.dockCurrentText || dockCodeEl.textContent || '';
+      if (!text.trim()) {
+        setStatus(i18n[state.lang].dockEmpty, 'warn');
+        return;
+      }
+
       try {
-        const ok = await copyText(merged);
+        const ok = await copyText(text);
         if (ok) {
-          setStatus(i18n[state.lang].copiedTemplatesAll, 'ok');
+          setStatus(i18n[state.lang].dockCopied, 'ok');
         } else {
+          const fallback = document.createElement('textarea');
+          fallback.value = text;
+          fallback.style.position = 'fixed';
+          fallback.style.left = '-9999px';
+          document.body.appendChild(fallback);
+          fallback.focus();
+          fallback.select();
           setStatus(i18n[state.lang].blocked, 'warn');
+          setTimeout(() => fallback.remove(), 1500);
         }
       } catch (_) {
+        const fallback = document.createElement('textarea');
+        fallback.value = text;
+        fallback.style.position = 'fixed';
+        fallback.style.left = '-9999px';
+        document.body.appendChild(fallback);
+        fallback.focus();
+        fallback.select();
         setStatus(i18n[state.lang].blocked, 'warn');
+        setTimeout(() => fallback.remove(), 1500);
       }
     });
 
-    expandAllEl.addEventListener('click', () => {
-      state.sourcePanelsVisible = true;
-      applySourcePanelVisibility();
-      setStatus(i18n[state.lang].expanded);
-    });
-
-    compactAllEl.addEventListener('click', () => {
-      state.sourcePanelsVisible = false;
-      applySourcePanelVisibility();
-      setStatus(i18n[state.lang].compacted);
-    });
+    window.addEventListener('scroll', scheduleDockRefresh, { passive: true });
+    window.addEventListener('resize', scheduleDockRefresh);
 
     enhanceTemplateRendering();
-    applySourcePanelVisibility();
     switchLanguage('en');
     window.addEventListener('load', () => {
       typesetMath(document);
+      refreshDockByViewport(true);
     });
   </script>
 </body>
