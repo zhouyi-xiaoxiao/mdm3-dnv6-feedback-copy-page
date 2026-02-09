@@ -499,7 +499,6 @@
 
     <div class="toolbar">
       <button class="btn-toggle" id="lang-toggle">切换中文</button>
-      <button class="btn-primary" id="copy-full">Copy Full Feedback (Text)</button>
       <button id="source-toggle">Open Floating Source Dock</button>
       <span id="status" class="status">Ready.</span>
     </div>
@@ -1037,13 +1036,11 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         heroTitle: 'Full Structured Feedback for <code>MDM3___DNV (6).pdf</code>',
         heroSubtitle: 'Bilingual review page with complete feedback, polished formatting, and one-click copy actions.',
         toggle: '切换中文',
-        copyFull: 'Copy Full Feedback (Text)',
         sourceToggleOpen: 'Open Floating Source Dock',
         sourceToggleClose: 'Hide Floating Source Dock',
         footer: 'Best compatibility: modern browsers over HTTPS. If clipboard access is blocked, select the target text and press Cmd/Ctrl+C.',
         ready: 'Ready.',
         copiedTemplate: (n) => `Copied template ${n}.`,
-        copiedFull: 'Copied full feedback text.',
         dockKicker: 'Floating Source Dock',
         dockTitlePrefix: 'Current Template Source',
         dockNote: 'Auto-follows the section nearest to the viewport while scrolling.',
@@ -1060,13 +1057,11 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         heroTitle: '《<code>MDM3___DNV (6).pdf</code>》完整书面反馈',
         heroSubtitle: '双语版页面，含完整反馈内容、优化排版与一键复制能力。',
         toggle: 'Switch to English',
-        copyFull: '复制整份反馈文本',
         sourceToggleOpen: '打开源码悬浮窗',
         sourceToggleClose: '关闭源码悬浮窗',
         footer: '建议在 HTTPS 浏览器中使用。若复制权限被拦截，请选中文本后按 Cmd/Ctrl+C。',
         ready: '已就绪。',
         copiedTemplate: (n) => `已复制模板 ${n}。`,
-        copiedFull: '已复制整份反馈文本。',
         dockKicker: '源码悬浮窗',
         dockTitlePrefix: '当前模板源码',
         dockNote: '滚动页面时会自动跟随当前可视区域附近的模板段落。',
@@ -1085,7 +1080,6 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
     const heroTitleEl = document.getElementById('hero-title');
     const heroSubtitleEl = document.getElementById('hero-subtitle');
     const langToggleEl = document.getElementById('lang-toggle');
-    const copyFullEl = document.getElementById('copy-full');
     const sourceToggleEl = document.getElementById('source-toggle');
     const dockEl = document.getElementById('source-dock');
     const dockKickerEl = document.getElementById('dock-kicker');
@@ -1232,7 +1226,6 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       heroTitleEl.innerHTML = t.heroTitle;
       heroSubtitleEl.textContent = t.heroSubtitle;
       langToggleEl.textContent = t.toggle;
-      copyFullEl.textContent = t.copyFull;
       sourceToggleEl.textContent = state.dockOpen ? t.sourceToggleClose : t.sourceToggleOpen;
       dockKickerEl.textContent = t.dockKicker;
       dockNoteEl.textContent = t.dockNote;
@@ -1292,11 +1285,6 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
 
     langToggleEl.addEventListener('click', () => {
       switchLanguage(state.lang === 'en' ? 'zh' : 'en');
-    });
-
-    copyFullEl.addEventListener('click', () => {
-      const target = document.getElementById(state.lang === 'en' ? 'full-en' : 'full-zh');
-      copyFromTextarea(target, i18n[state.lang].copiedFull);
     });
 
     sourceToggleEl.addEventListener('click', () => {
