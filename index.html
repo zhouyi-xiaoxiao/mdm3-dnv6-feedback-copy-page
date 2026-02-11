@@ -550,7 +550,6 @@
           <nav class="map-links">
             <a href="#en-at-a-glance">At a Glance</a>
             <a href="#en-overall">Overall Assessment</a>
-            <a href="#en-rescan">Rescan Confirmation</a>
             <a href="#en-must">Must-Fix Revisions</a>
             <a href="#en-recommended">Recommended Improvements</a>
             <a href="#en-optional">Optional Add-on</a>
@@ -564,7 +563,6 @@
           <nav class="map-links">
             <a href="#zh-at-a-glance">一页总览</a>
             <a href="#zh-overall">总体评价</a>
-            <a href="#zh-rescan">复扫确认</a>
             <a href="#zh-must">必改项</a>
             <a href="#zh-recommended">建议改进项</a>
             <a href="#zh-optional">可选加分项</a>
@@ -597,11 +595,12 @@
             <p class="overview-v">6 Copyable Templates</p>
           </article>
         </div>
-        <div class="note">Coverage check: this revision includes all items from your 2026-02-11 feedback plus additional PDF-level corrections identified from <code>MDM3___DNV (15).pdf</code>.</div>
       </section>
 
       <section class="section" id="en-overall">
         <h2>Overall Assessment</h2>
+        <p class="meta"><strong>Page notation in this guide:</strong> <code>PDF p.X (footer p.Y)</code>. In this file, footer numbering starts after cover + abstract, so typically <code>Y = X - 2</code>.</p>
+        <p class="meta"><strong>Rescan method:</strong> confirmed by page-image inspection plus extracted text from <code>MDM3___DNV (15).pdf</code>.</p>
         <p>The report narrative is close to complete, but three breaks still weaken the argument chain.</p>
         <ul>
           <li><strong>Breakpoint A (damping sign):</strong> the sign convention for \(W\), the figure axis label, and the wording in Results/Conclusion are not yet fully aligned.</li>
@@ -611,35 +610,13 @@
         <p>Fixing these three breaks will make the technical story much more defensible for marking and for an external engineering audience.</p>
       </section>
 
-      <section class="section" id="en-rescan">
-        <h2>Rescan Confirmation</h2>
-        <p class="meta"><strong>Page numbering note:</strong> this guide uses both PDF-viewer page numbers and footer page numbers. We write them as <code>PDF p.X (footer p.Y)</code>. In this file, footer numbering starts after cover + abstract, so it is typically <code>Y = X - 2</code>.</p>
-        <p class="meta"><strong>Scope:</strong> second-pass check on <code>MDM3___DNV (15).pdf</code> using page-by-page text extraction.</p>
-        <p class="meta"><strong>Confirmed from PDF text:</strong></p>
-        <ul>
-          <li>p.5 still contains <code>Section??</code>.</li>
-          <li>p.11 still references <code>Appendix A.8</code> for spectral baselines (should point to Appendix A.4 figures).</li>
-          <li>p.10 Section 4.2 rigid-case paragraph still says <code>Figure 10</code> where context indicates Figure 3.</li>
-          <li>p.2 Abstract still says flexible open-source data <code>[1]</code>.</li>
-          <li>p.8 still has visible language defects: <code>conditions..</code>, <code>component is remains governed</code>, <code>10%The</code>.</li>
-          <li>Ref [21] still contains <code>Constractor</code>.</li>
-        </ul>
-        <p class="meta"><strong>Removed as unconfirmed:</strong> the previous abstract spacing/glued-token warning was removed because it is not reliably verifiable from visual inspection.</p>
-        <p class="meta"><strong>Requires visual (non-text) verification in the PDF viewer:</strong></p>
-        <ul>
-          <li>Whether Figure 3 y-axis label is still "Negative Damping" and whether \(W=0\) guide line is absent.</li>
-          <li>Whether Figure 2-4 captions are still near-identical and under-specified.</li>
-          <li>Any axis clipping / cropped labels in work-per-cycle figures.</li>
-        </ul>
-      </section>
-
       <section class="section priority-must" id="en-must">
         <h2>Must-Fix Revisions <span class="tag must">HIGH PRIORITY</span></h2>
         <p class="meta">These points should be addressed first. They directly impact presentation quality, technical consistency, and trust in the conclusions.</p>
 
         <article class="item">
           <h3>1.1) Resolve placeholder and cross-reference errors</h3>
-          <p class="meta"><strong>Locations:</strong> p.5 (<code>Section ??</code>), p.11 (<code>Appendix A.8</code>), p.10 (<code>Figure 10</code> in rigid-case text).</p>
+          <p class="meta"><strong>Confirmed locations:</strong> <code>PDF p.5 (footer p.3)</code> for <code>Section ??</code>, <code>PDF p.11 (footer p.9)</code> for <code>Appendix A.8</code>, and <code>PDF p.10 (footer p.8)</code> for <code>Figure 10</code> in the rigid-case paragraph.</p>
           <ul>
             <li>Replace <code>Section ??</code> with the actual limitations section reference.</li>
             <li>Replace <code>Appendix A.8</code> with <code>Appendix A.4, Figures 6-7</code> for no-stall and Oye spectrogram references.</li>
@@ -656,7 +633,7 @@
 
         <article class="item">
           <h3>1.2) Correct abstract citation mapping</h3>
-          <p class="meta"><strong>Location:</strong> p.2 Abstract (<code>flexible open source data [1]</code>).</p>
+          <p class="meta"><strong>Confirmed location:</strong> <code>PDF p.2</code> Abstract contains <code>flexible open source data [1]</code>.</p>
           <ul>
             <li>Change the flexible dataset citation from <code>[1]</code> to your dataset source (currently <code>[14]</code> in Methods).</li>
           </ul>
@@ -671,10 +648,10 @@
 
         <article class="item">
           <h3>1.3) Unify work-per-cycle sign convention and damping interpretation</h3>
-          <p class="meta"><strong>Locations:</strong> Section 3.6 (Eq. 15), Figure 3, Section 4.2, Conclusion.</p>
+          <p class="meta"><strong>Confirmed locations:</strong> Eq. (15) in <code>PDF p.9 (footer p.7)</code>; Figure 3 and its axis in <code>PDF p.10 (footer p.8)</code>; interpretation text in Section 4.2 and Conclusion.</p>
           <ul>
             <li>Add one explicit sign convention sentence immediately after Eq. (15).</li>
-            <li>If Figure 3 y-axis is currently labeled <code>Negative Damping</code>, rename it to <code>Work per cycle, W (non-dimensional)</code> and draw a dashed \(W=0\) line.</li>
+            <li>Figure 3 currently uses y-axis label <code>Negative Damping</code>; rename it to <code>Work per cycle, W (non-dimensional)</code> and draw a dashed \(W=0\) line.</li>
             <li>Separate rigid and flexible conclusions into distinct sentences to avoid contradiction.</li>
           </ul>
           <div class="template">
@@ -709,11 +686,12 @@
         <article class="item">
           <h3>1.5) Fix visible language and reference defects</h3>
           <ul>
-            <li>p.8: <code>conditions..</code> -&gt; <code>conditions.</code></li>
-            <li>p.8: <code>component is remains governed</code> -&gt; <code>component remains governed</code></li>
-            <li>p.8: <code>10%The</code> -&gt; <code>10%. The</code></li>
-            <li>p.4: <code>8 &lt; α &lt; 29.</code> -&gt; include degree units (<code>8° &lt; α &lt; 29°</code>)</li>
-            <li>Ref [21]: <code>Constractor</code> -&gt; <code>Contractor</code></li>
+            <li><code>PDF p.8 (footer p.6)</code>: <code>conditions..</code> -&gt; <code>conditions.</code></li>
+            <li><code>PDF p.8 (footer p.6)</code>: <code>component is remains governed</code> -&gt; <code>component remains governed</code></li>
+            <li><code>PDF p.8 (footer p.6)</code>: <code>10%The</code> -&gt; <code>10%. The</code></li>
+            <li><code>PDF p.4 (footer p.2)</code>: <code>8 &lt; α &lt; 29.</code> -&gt; include degree units (<code>8° &lt; α &lt; 29°</code>)</li>
+            <li><code>PDF p.19 (footer p.17)</code>, Appendix A.7: language quality is weaker than the main body (for example <code>a mathematic stability analysis</code>); run one focused grammar and symbol-consistency pass in A.7.</li>
+            <li><code>PDF p.22 (footer p.20)</code>, Ref [21]: <code>Constractor</code> -&gt; <code>Contractor</code></li>
             <li>Ref [20]: verify and correct Theodorsen bibliographic year/source metadata</li>
           </ul>
         </article>
@@ -766,7 +744,7 @@
           <li>Add the prescribed-excitation reproducibility block (\(\alpha(t)\), \(\Delta t\), total run time, final-cycle rule).</li>
           <li>Clean fast language/reference defects and rerun cross-reference checks before export.</li>
         </ol>
-        <div class="note">Extra scan note: Appendix A.7 language quality is noticeably weaker than the main body; a quick grammar pass there will improve overall finish.</div>
+        <div class="note">Confirmed from the rescan: Appendix A.7 (<code>PDF p.19, footer p.17</code>) needs a dedicated language/symbol cleanup pass before final export.</div>
       </section>
 
       <textarea id="full-en" hidden readonly>UPDATED BILINGUAL CORRECTION GUIDE FOR MDM3___DNV (15)
@@ -776,9 +754,9 @@ Core story status
 
 Must-fix (high priority)
 1.1 Resolve placeholder/cross-reference errors:
-- p.5 "Section ??"
-- p.11 "Appendix A.8" (should reference Appendix A.4, Figures 6-7)
-- p.10 "Figure 10" in rigid-case paragraph (should be Figure 3)
+- PDF p.5 (footer p.3): "Section ??"
+- PDF p.11 (footer p.9): "Appendix A.8" (should reference Appendix A.4, Figures 6-7)
+- PDF p.10 (footer p.8): "Figure 10" in rigid-case paragraph (should be Figure 3)
 
 1.2 Correct abstract citation and wording:
 - "flexible open source data [1]" should point to dataset reference [14]
@@ -797,6 +775,7 @@ Must-fix (high priority)
 - component is remains governed
 - 10%The
 - add degree symbols to 8<alpha<29
+- Appendix A.7 (PDF p.19, footer p.17): grammar/symbol consistency pass
 - Constractor -> Contractor
 - verify Theodorsen bibliographic metadata
 
@@ -839,11 +818,12 @@ Paste-ready templates included in page:
             <p class="overview-v">6 段可直接粘贴</p>
           </article>
         </div>
-        <div class="note">覆盖检查：本页已包含你给出的全部 2026-02-11 修订意见，并补充了我对 <code>MDM3___DNV (15).pdf</code> 的新增问题扫描结果。</div>
       </section>
 
       <section class="section" id="zh-overall">
         <h2>总体评价</h2>
+        <p class="meta"><strong>页码写法：</strong>本页统一写成 <code>PDF p.X (footer p.Y)</code>。这份文档通常满足 <code>Y = X - 2</code>。</p>
+        <p class="meta"><strong>复扫方式：</strong>已基于 PDF 页面图像人工核对，并结合文本抽取做二次确认。</p>
         <p>你们的主线已经接近闭环，但还有 3 个关键断点会削弱说服力。</p>
         <ul>
           <li><strong>断点 A（阻尼符号）：</strong>\(W\) 的符号定义、图轴命名、正文结论还没有完全统一。</li>
@@ -853,35 +833,13 @@ Paste-ready templates included in page:
         <p>优先把这三类问题修完，整份报告的技术可信度会显著上升。</p>
       </section>
 
-      <section class="section" id="zh-rescan">
-        <h2>复扫确认结果</h2>
-        <p class="meta"><strong>页码说明：</strong>本页统一使用两套页码：查看器页码与页脚页码，写法为 <code>PDF p.X (footer p.Y)</code>。这份文档通常满足 <code>Y = X - 2</code>（因为封面和 Abstract 不计入页脚编号）。</p>
-        <p class="meta"><strong>扫描范围：</strong>对 <code>MDM3___DNV (15).pdf</code> 做了第二轮逐页文本核查。</p>
-        <p class="meta"><strong>可由文本直接确认的问题：</strong></p>
-        <ul>
-          <li>p.5 仍有 <code>Section??</code> 占位符。</li>
-          <li>p.11 仍把频谱基线指向 <code>Appendix A.8</code>（应改到 Appendix A.4 对应图）。</li>
-          <li>p.10 Section 4.2 的 rigid 段仍写 <code>Figure 10</code>（语境上应是 Figure 3）。</li>
-          <li>p.2 Abstract 仍写 flexible data <code>[1]</code>，与正文数据源不一致。</li>
-          <li>p.8 仍有显性语病：<code>conditions..</code>、<code>component is remains governed</code>、<code>10%The</code>。</li>
-          <li>Ref [21] 仍有 <code>Constractor</code> 拼写错误。</li>
-        </ul>
-        <p class="meta"><strong>已移除的不确定告警：</strong>之前关于 Abstract 数字“粘连”的提示已删除，因为该项无法稳定通过视觉复核确认。</p>
-        <p class="meta"><strong>需人工看图确认（文本无法判断）：</strong></p>
-        <ul>
-          <li>Figure 3 y 轴是否仍是 "Negative Damping"，以及是否缺少 \(W=0\) 参考线。</li>
-          <li>Figure 2-4 图注是否仍过于相似、信息不足。</li>
-          <li>work-per-cycle 图是否仍存在坐标轴裁切。</li>
-        </ul>
-      </section>
-
       <section class="section priority-must" id="zh-must">
         <h2>必改项 <span class="tag must">高优先级</span></h2>
         <p class="meta">建议先做完这一部分；这些问题会直接影响评分中的 Presentation、Scientific Argumentation 和 Technical Content。</p>
 
         <article class="item">
           <h3>1.1）清理占位符与交叉引用错误</h3>
-          <p class="meta"><strong>位置：</strong>p.5（<code>Section ??</code>）、p.11（<code>Appendix A.8</code>）、p.10（rigid 段落里写成 <code>Figure 10</code>）。</p>
+          <p class="meta"><strong>已确认位置：</strong><code>PDF p.5 (footer p.3)</code> 的 <code>Section ??</code>，<code>PDF p.11 (footer p.9)</code> 的 <code>Appendix A.8</code>，以及 <code>PDF p.10 (footer p.8)</code> rigid 段落里的 <code>Figure 10</code>。</p>
           <ul>
             <li><code>Section ??</code> 改成真实章节（建议指向 Conclusion/Limitations 段）。</li>
             <li><code>Appendix A.8</code> 改成 <code>Appendix A.4, Figures 6-7</code>。</li>
@@ -898,7 +856,7 @@ Paste-ready templates included in page:
 
         <article class="item">
           <h3>1.2）修正 Abstract 的数据集引用</h3>
-          <p class="meta"><strong>位置：</strong>p.2 Abstract（<code>flexible open source data [1]</code>）。</p>
+          <p class="meta"><strong>已确认位置：</strong><code>PDF p.2</code> Abstract 含 <code>flexible open source data [1]</code>。</p>
           <ul>
             <li>柔性数据应引用你们的方法章节数据源（当前是 [14]），不是 [1]。</li>
           </ul>
@@ -913,10 +871,10 @@ Paste-ready templates included in page:
 
         <article class="item">
           <h3>1.3）统一 Work per cycle 与负阻尼的符号定义</h3>
-          <p class="meta"><strong>位置：</strong>Section 3.6（Eq.15）、Figure 3、Section 4.2、Conclusion。</p>
+          <p class="meta"><strong>已确认位置：</strong>Eq.(15) 在 <code>PDF p.9 (footer p.7)</code>；Figure 3 及其坐标轴在 <code>PDF p.10 (footer p.8)</code>；解释文字在 Section 4.2 与 Conclusion。</p>
           <ul>
             <li>Eq.15 后明确写一次 \(W&gt;0\) / \(W&lt;0\) 物理意义。</li>
-            <li>如果 Figure 3 当前 y 轴确实写成 <code>Negative Damping</code>，建议改为 <code>Work per cycle, W (non-dimensional)</code> 并加 \(W=0\) 虚线。</li>
+            <li>Figure 3 当前 y 轴确认为 <code>Negative Damping</code>，建议改为 <code>Work per cycle, W (non-dimensional)</code> 并加 \(W=0\) 虚线。</li>
             <li>把 rigid 与 flexible 的结论拆开写，避免前后句冲突。</li>
           </ul>
           <div class="template">
@@ -951,11 +909,12 @@ Paste-ready templates included in page:
         <article class="item">
           <h3>1.5）快速修正显眼语病与参考文献瑕疵</h3>
           <ul>
-            <li>p.8：<code>conditions..</code> -&gt; <code>conditions.</code></li>
-            <li>p.8：<code>component is remains governed</code> -&gt; <code>component remains governed</code></li>
-            <li>p.8：<code>10%The</code> -&gt; <code>10%. The</code></li>
-            <li>p.4：<code>8 &lt; α &lt; 29.</code> 建议补单位（<code>8° &lt; α &lt; 29°</code>）</li>
-            <li>Ref [21]：<code>Constractor</code> -&gt; <code>Contractor</code></li>
+            <li><code>PDF p.8 (footer p.6)</code>：<code>conditions..</code> -&gt; <code>conditions.</code></li>
+            <li><code>PDF p.8 (footer p.6)</code>：<code>component is remains governed</code> -&gt; <code>component remains governed</code></li>
+            <li><code>PDF p.8 (footer p.6)</code>：<code>10%The</code> -&gt; <code>10%. The</code></li>
+            <li><code>PDF p.4 (footer p.2)</code>：<code>8 &lt; α &lt; 29.</code> 建议补单位（<code>8° &lt; α &lt; 29°</code>）</li>
+            <li><code>PDF p.19 (footer p.17)</code>，Appendix A.7：语言质量弱于正文（例如 <code>a mathematic stability analysis</code>），建议单独做一次语法与符号一致性清理。</li>
+            <li><code>PDF p.22 (footer p.20)</code>，Ref [21]：<code>Constractor</code> -&gt; <code>Contractor</code></li>
             <li>Ref [20]：核对 Theodorsen 的年份与条目信息（当前高度可疑）</li>
           </ul>
         </article>
@@ -1008,7 +967,7 @@ Paste-ready templates included in page:
           <li>补上 \(\alpha(t)\)、\(\Delta t\)、总时长与最后周期评估规则。</li>
           <li>快速清语病、拼写与参考文献信息后再导出最终版。</li>
         </ol>
-        <div class="note">额外扫描提示：Appendix A.7 的语言质量明显弱于正文，建议单独做一次语法和符号一致性清理。</div>
+        <div class="note">复扫已确认：Appendix A.7（<code>PDF p.19, footer p.17</code>）需要单独做一次语法与符号一致性清理，再导出最终版。</div>
       </section>
 
       <textarea id="full-zh" hidden readonly>MDM3___DNV (15) 新版网页修正指南（中英双语）
@@ -1017,11 +976,11 @@ Paste-ready templates included in page:
 - 报告主线基本成型，但存在 3 个断点：阻尼符号不统一、rigid/flexible 结论混写、交叉引用硬错误。
 
 必改项（高优先级）
-1.1 修正 Section?? / Appendix A.8 / Figure 10 等错误引用
+1.1 修正 Section?? / Appendix A.8 / Figure 10 等错误引用（已在 PDF p.5/p.11/p.10 对应位置确认）
 1.2 修正 Abstract 中 flexible dataset 引用（[1] -> [14]）
 1.3 统一 W 正负号定义、Figure 3 轴命名、Results/Conclusion 结论
 1.4 补可复现性设置：alpha(t)、dt、总时长、最后周期规则
-1.5 快速修语病与参考文献瑕疵（conditions.., 10%The, Constractor 等）
+1.5 快速修语病与参考文献瑕疵（conditions.., 10%The, A.7 语法一致性, Constractor 等）
 
 建议改进
 2.1 明确模型推荐判据（峰值、耦合稳健性、时域稳定性）
