@@ -520,7 +520,7 @@
   <div class="wrap">
     <header class="hero">
       <h1 id="hero-title">DNV反馈</h1>
-      <p id="hero-subtitle">MDM3___DNV (6).pdf</p>
+      <p id="hero-subtitle">MDM3___DNV (15).pdf</p>
     </header>
 
     <div class="toolbar">
@@ -579,243 +579,219 @@
         <h2>At a Glance</h2>
         <div class="overview-grid">
           <article class="overview-card">
-            <p class="overview-k">Must-Fix Items</p>
-            <p class="overview-v">7 Core Revisions</p>
+            <p class="overview-k">Must-Fix</p>
+            <p class="overview-v">5 High-Priority Fixes</p>
           </article>
           <article class="overview-card">
             <p class="overview-k">Recommended</p>
-            <p class="overview-v">3 Score-Uplift Items</p>
+            <p class="overview-v">2 Strengthening Actions</p>
           </article>
           <article class="overview-card">
             <p class="overview-k">Optional</p>
-            <p class="overview-v">1 Strategic Add-on</p>
+            <p class="overview-v">2 High-Value Add-ons</p>
           </article>
           <article class="overview-card">
             <p class="overview-k">Paste-Ready Blocks</p>
-            <p class="overview-v">5 Copyable Templates</p>
+            <p class="overview-v">6 Copyable Templates</p>
           </article>
         </div>
-        <div class="note">Coverage check: all 11 original feedback items are included, plus the final 4-point submission checklist.</div>
+        <div class="note">Coverage check: this revision includes all items from your 2026-02-11 feedback plus additional PDF-level corrections identified from <code>MDM3___DNV (15).pdf</code>.</div>
       </section>
 
       <section class="section" id="en-overall">
         <h2>Overall Assessment</h2>
-        <p>This version is a clear step up from the previous one. The structure is much cleaner, and the technical narrative is close to fully convincing.</p>
+        <p>The report narrative is close to complete, but three breaks still weaken the argument chain.</p>
         <ul>
-          <li><strong>The research question is now explicit:</strong> the Introduction clearly states unified implementation, validation, STFT analysis, and work-per-cycle interpretation.</li>
-          <li><strong>The case setup is consistent:</strong> \(k=0.079\), \(\bar{\alpha}=18.5^\circ\), and \(A=10.4^\circ\) now align across sections.</li>
-          <li><strong>The core evidence chain is in place:</strong> work-per-cycle plots (Figures 1-4) plus rigid/flexible spectral comparison (Figures 6-9) now support one coherent story.</li>
+          <li><strong>Breakpoint A (damping sign):</strong> the sign convention for \(W\), the figure axis label, and the wording in Results/Conclusion are not yet fully aligned.</li>
+          <li><strong>Breakpoint B (rigid vs flexible evidence):</strong> some paragraphs mix rigid prescribed-motion and flexible dataset conclusions in one statement.</li>
+          <li><strong>Breakpoint C (cross-references):</strong> unresolved references (for example <code>Section ??</code>, <code>Appendix A.8</code>, and a wrong figure number) reduce credibility immediately.</li>
         </ul>
-        <p>If I were marking the next draft, I would focus on three things: remove all unfinished placeholders, tighten reproducibility details, and explicitly connect work-per-cycle findings to your damping/stability claims.</p>
+        <p>Fixing these three breaks will make the technical story much more defensible for marking and for an external engineering audience.</p>
       </section>
 
       <section class="section priority-must" id="en-must">
         <h2>Must-Fix Revisions <span class="tag must">HIGH PRIORITY</span></h2>
-        <p class="meta">If your team has limited time, prioritize this section first. These are the points most likely to affect marks and credibility.</p>
+        <p class="meta">These points should be addressed first. They directly impact presentation quality, technical consistency, and trust in the conclusions.</p>
 
         <article class="item">
-          <h3>1) Abstract is currently empty</h3>
-          <p class="meta"><strong>Location:</strong> PDF p.2, under "Abstract".</p>
-          <p class="meta"><strong>Why:</strong> This directly weakens first-pass scientific credibility and presentation quality.</p>
-          <p class="meta"><strong>Action:</strong> Add one 150-220 word abstract covering models/benchmark, extra analysis, key findings, and recommendation boundary.</p>
+          <h3>1.1) Resolve placeholder and cross-reference errors</h3>
+          <p class="meta"><strong>Locations:</strong> p.5 (<code>Section ??</code>), p.11 (<code>Appendix A.8</code>), p.10 (<code>Figure 10</code> in rigid-case text).</p>
+          <ul>
+            <li>Replace <code>Section ??</code> with the actual limitations section reference.</li>
+            <li>Replace <code>Appendix A.8</code> with <code>Appendix A.4, Figures 6-7</code> for no-stall and Oye spectrogram references.</li>
+            <li>Replace the rigid-case work-per-cycle reference from <code>Figure 10</code> to <code>Figure 3</code>.</li>
+          </ul>
           <div class="template">
             <div class="template-head">
-              <strong>Paste-ready wording (Abstract skeleton)</strong>
+              <strong>Paste-ready wording (cross-reference cleanup)</strong>
               <button class="copy-btn" data-copy="en-tpl-1">Copy</button>
             </div>
-            <textarea id="en-tpl-1" readonly>We implemented the Oye, Beddoes--Leishman (BL), and IAG dynamic stall models in a consistent framework and validated their \(C_L\), \(C_D\), and \(C_M\) hysteresis predictions against the NREL/OSU S809 benchmark at \(k=0.079\) and \(\alpha=18.5^\circ \pm 10.4^\circ\). We then quantified cycle-averaged aerodynamic work \(W=\oint C_M\,d\alpha\) to assess the tendency for negative/positive aerodynamic damping, and performed STFT-based time-frequency analysis on rigid-model outputs and a public flexible-blade dataset. Under the examined conditions, [key finding 1] and [key finding 2]. These results suggest that [recommendation to DNV], while [limitations and applicability boundary].</textarea>
+            <textarea id="en-tpl-1" readonly>... limits the generalisability of the findings; these implications are discussed in Section 6 (Limitations). The no-stall and Oye baseline spectra are shown in Appendix A.4 (Figures 6-7). The results for the rigid prescribed-motion case are shown in Figure 3.</textarea>
           </div>
         </article>
 
         <article class="item">
-          <h3>2) Placeholder/internal-note text still appears in the report</h3>
-
-          <p class="meta"><strong>2.1 Location:</strong> PDF p.13, Section 4.2: "see add the OTHER STUFF TO APPENDIX".</p>
-          <p class="meta"><strong>Action:</strong> Remove it or replace it with a traceable appendix reference.</p>
+          <h3>1.2) Correct abstract citation mapping and wording clarity</h3>
+          <p class="meta"><strong>Location:</strong> p.2 Abstract (<code>flexible open source data [1]</code>).</p>
+          <ul>
+            <li>Change the flexible dataset citation from <code>[1]</code> to your dataset source (currently <code>[14]</code> in Methods).</li>
+            <li>Fix compressed spacing in numerical statements (for example <code>maximumCL</code>, <code>at0.592vs0.839</code>, <code>at0.107forCD</code>).</li>
+          </ul>
           <div class="template">
             <div class="template-head">
-              <strong>Paste-ready wording (Section 4.2)</strong>
+              <strong>Paste-ready wording (abstract citation line)</strong>
               <button class="copy-btn" data-copy="en-tpl-2">Copy</button>
             </div>
-            <textarea id="en-tpl-2" readonly>The static and Oye cases are included in Appendix A.6 (Figures 10-13) as baselines; the main discussion therefore focuses on BL and IAG, which are more relevant for wind-turbine applications under strongly unsteady conditions.</textarea>
+            <textarea id="en-tpl-2" readonly>... and flexible open-source aeroelastic simulation data [14]. The IAG model yields the lowest peak \(C_L\) error (0.592 versus 0.839 for the static case), while the static polar gives the lowest \(C_D\) RMSE (0.107).</textarea>
           </div>
+        </article>
 
-          <p class="meta"><strong>2.2 Location:</strong> PDF p.17, Discussion: "GAP FOR CAROLINE ADD THE WORK PER CYCLE ANALYSIS PLEASE".</p>
-          <p class="meta"><strong>Action:</strong> Replace with real work-per-cycle interpretation tied to Figures 1-4 and Figures 8-9.</p>
+        <article class="item">
+          <h3>1.3) Unify work-per-cycle sign convention and damping interpretation</h3>
+          <p class="meta"><strong>Locations:</strong> Section 3.6 (Eq. 15), Figure 3, Section 4.2, Conclusion.</p>
+          <ul>
+            <li>Add one explicit sign convention sentence immediately after Eq. (15).</li>
+            <li>Change Figure 3 y-axis from <code>Negative Damping</code> to <code>Work per cycle, W (non-dimensional)</code> and draw a dashed \(W=0\) line.</li>
+            <li>Separate rigid and flexible conclusions into distinct sentences to avoid contradiction.</li>
+          </ul>
           <div class="template">
             <div class="template-head">
-              <strong>Paste-ready wording (Work-per-cycle implications)</strong>
+              <strong>Paste-ready wording (sign convention)</strong>
               <button class="copy-btn" data-copy="en-tpl-3">Copy</button>
             </div>
-            <textarea id="en-tpl-3" readonly>Figures 1-4 quantify cycle-by-cycle aerodynamic work \(W=\oint C_M\,d\alpha\) under prescribed excitation. Using the sign convention \(W>0\) as net aerodynamic energy input to the motion (negative damping) and \(W<0\) as net dissipation (positive damping), the BL model exhibits [persistent positive \(W\) / onset after \(t\approx\cdots\) / resonance amplification], whereas the IAG response remains [near zero / negative / bounded] across the same conditions. This is consistent with the flexible-blade STFT results: the BL case shows a broadband energy burst around \(t\approx 65\text{--}75\,\mathrm{s}\) (Figure 8), while the IAG case remains dominated by discrete harmonics (Figure 9). Importantly, \(W\) here is a model-based indicator under prescribed motion and may be affected by numerical stabilisation (e.g., amplitude limiting in IAG); therefore we interpret the work trends as comparative evidence rather than a direct physical damping measurement.</textarea>
+            <textarea id="en-tpl-3" readonly>We define \(W>0\) as net aerodynamic energy input to the prescribed pitch motion (negative aerodynamic damping), and \(W<0\) as net energy removal (positive damping). Angles are treated in radians when evaluating the integral.</textarea>
           </div>
-
-          <p class="meta"><strong>2.3 Location:</strong> PDF p.19, Appendix A.3 first paragraph (self-negating wording).</p>
-          <p class="meta"><strong>Action:</strong> Remove the section, or replace it with objective supporting language.</p>
           <div class="template">
             <div class="template-head">
-              <strong>Paste-ready wording (Appendix A.3)</strong>
+              <strong>Paste-ready wording (rigid vs flexible bridge)</strong>
               <button class="copy-btn" data-copy="en-tpl-4">Copy</button>
             </div>
-            <textarea id="en-tpl-4" readonly>This appendix provides supplementary stability-related derivations for completeness. These results are not required for the main conclusions in Sections 4-5 but are included to support reproducibility and future extensions.</textarea>
+            <textarea id="en-tpl-4" readonly>In the rigid prescribed-motion case (Figure 3), \(W\) remains [near zero / same sign] across models, indicating [no / limited] negative damping under these assumptions. In the aeroelastic dataset (Figure 8), BL shows \(W>0\) at high wind speed, while IAG remains at \(W\le0\) because of its amplitude-limiting formulation.</textarea>
           </div>
         </article>
 
         <article class="item">
-          <h3>3) Work-per-cycle method is under-specified for reproducibility</h3>
-          <p class="meta"><strong>Location:</strong> PDF p.10, Section 3.5 (after Eq. 15).</p>
-          <p class="meta"><strong>Missing details:</strong> cycle boundary rule, discrete integration method, sign convention, and why \(C_M-\alpha\) is used.</p>
+          <h3>1.4) Add reproducibility details for the prescribed excitation setup</h3>
+          <p class="meta"><strong>Location:</strong> end of Section 3.3 or immediately before Section 3.6.</p>
+          <p class="meta"><strong>Why:</strong> your current text says prescribed sinusoidal motion, but does not give \(\alpha(t)\), \(\Delta t\), run length, or cycle-selection rule.</p>
           <div class="template">
             <div class="template-head">
-              <strong>Paste-ready wording (method detail)</strong>
+              <strong>Paste-ready wording (reproducibility block)</strong>
               <button class="copy-btn" data-copy="en-tpl-5">Copy</button>
             </div>
-            <textarea id="en-tpl-5" readonly>In practice, \(W\) is computed once per excitation cycle using the discrete time series \((\alpha_i, C_{M,i})\) and a trapezoidal approximation of \(\oint C_M\,d\alpha\). Cycle boundaries are defined by successive [peaks / zero-crossings of \((\alpha-\bar{\alpha})\)], and the resulting \(W_n\) is plotted against time at the end of each cycle. We adopt the convention that \(W>0\) indicates net aerodynamic energy input to the motion (negative damping), while \(W<0\) indicates net dissipation (positive damping). The \(C_M\)-\(\alpha\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.</textarea>
+            <textarea id="en-tpl-5" readonly>The prescribed motion is \(\alpha(t)=\bar{\alpha}+A\sin(2\pi f_e t)\), with \(\bar{\alpha}=18.5^\circ\) and \(A=10.4^\circ\) to match the OSU benchmark case. Simulations use \(\Delta t=[...]\), duration \(T_{total}=[...]\), and all error metrics are computed over the final cycle after transients.</textarea>
           </div>
         </article>
 
         <article class="item">
-          <h3>4) Figures 1-4: caption quality and plotting layout issues</h3>
+          <h3>1.5) Fix visible language and reference defects</h3>
           <ul>
-            <li><strong>4.1</strong> Figures 2-4 have near-identical captions. Each caption should state excitation type, wind speed, and rigid/flexible context.</li>
-            <li><strong>4.2</strong> Replace internal legend names (<code>None</code>, <code>Oye2</code>, <code>BeddoesIncomp</code>, <code>IAGModel</code>) with manuscript-grade names: <code>Static (no DS)</code>, <code>Oye</code>, <code>BL (1st-order)</code>, <code>IAG</code>.</li>
-            <li><strong>4.3</strong> Re-export figures to remove axis clipping and punctuation artifacts.</li>
+            <li>p.8: <code>conditions..</code> -&gt; <code>conditions.</code></li>
+            <li>p.8: <code>component is remains governed</code> -&gt; <code>component remains governed</code></li>
+            <li>p.8: <code>10%The</code> -&gt; <code>10%. The</code></li>
+            <li>p.4: <code>8 &lt; α &lt; 29.</code> -&gt; include degree units (<code>8° &lt; α &lt; 29°</code>)</li>
+            <li>Ref [21]: <code>Constractor</code> -&gt; <code>Contractor</code></li>
+            <li>Ref [20]: verify and correct Theodorsen bibliographic year/source metadata</li>
           </ul>
-        </article>
-
-        <article class="item">
-          <h3>5) Appendix A.4 is empty</h3>
-          <p class="meta"><strong>Location:</strong> PDF p.20, "Links and Repositories".</p>
-          <p class="meta"><strong>Action:</strong> Add 2-4 lines (repository, data sources, run notes), or remove the subsection entirely.</p>
-        </article>
-
-        <article class="item">
-          <h3>6) Citation/reference mismatch</h3>
-          <ul>
-            <li><strong>6.1</strong> Appendix A.5 says "Following Hansen (2004) [18]", but [18] is currently a DNV webpage. Fix citation-source alignment.</li>
-            <li><strong>6.2</strong> Reference [18] still uses placeholder access date <code>2024-XX-XX</code>. Replace with a real date.</li>
-          </ul>
-        </article>
-
-        <article class="item">
-          <h3>7) Appendix Figure 12 caption mismatch</h3>
-          <p class="meta"><strong>Location:</strong> PDF p.22, Figure 12.</p>
-          <p class="meta"><strong>Issue:</strong> Figure title indicates flexible static case, caption says rigid airfoil.</p>
-          <p class="meta"><strong>Action:</strong> Change caption to flexible airfoil/blade static wording, aligned with Figure 10 (rigid static).</p>
         </article>
       </section>
 
       <section class="section priority-should" id="en-recommended">
         <h2>Recommended Improvements <span class="tag should">SCORE UPLIFT</span></h2>
-        <p class="meta">These are not fatal issues, but they can raise your score noticeably with relatively low effort.</p>
+        <p class="meta">These changes make the model recommendation feel engineering-driven rather than descriptive.</p>
 
         <article class="item">
-          <h3>8) Add one quantitative validation table</h3>
-          <p class="meta"><strong>Location:</strong> PDF p.13, Section 4.1.</p>
-          <p class="meta"><strong>Action:</strong> Add RMSE/MAE table for \(C_L(\alpha)\), \(C_D(\alpha)\), \(C_M(\alpha)\) (optionally upstroke/downstroke), or peak-error metrics.</p>
+          <h3>2.1) State explicit model-selection criteria in Conclusion</h3>
+          <p class="meta"><strong>Location:</strong> first paragraph of Section 6 Conclusion.</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>Paste-ready wording (decision criteria sentence)</strong>
+              <button class="copy-btn" data-copy="en-tpl-6">Copy</button>
+            </div>
+            <textarea id="en-tpl-6" readonly>Overall model preference is based on (i) peak-load fidelity in deep stall, (ii) robustness under aeroelastic coupling (broadband growth and sign of \(W\)), and (iii) practical stability for long time-domain simulations.</textarea>
+          </div>
         </article>
 
         <article class="item">
-          <h3>9) Disclose IAG gating and amplitude-limiting settings</h3>
-          <p class="meta"><strong>Location:</strong> PDF p.9, Section 3.3.</p>
-          <p class="meta"><strong>Action:</strong> State threshold/limiter values and add one short sensitivity note.</p>
-        </article>
-
-        <article class="item">
-          <h3>10) Fix sentence break across page in Section 4.2</h3>
-          <p class="meta"><strong>Location:</strong> PDF p.13 to p.14 ("This is consistent ...").</p>
-          <p class="meta"><strong>Action:</strong> Reflow paragraph or move figure to avoid broken sentence continuity.</p>
+          <h3>2.2) Add one simple quantitative spectral metric</h3>
+          <ul>
+            <li><strong>Option A:</strong> broadband energy ratio = non-harmonic band energy / total energy.</li>
+            <li><strong>Option B:</strong> FFT harmonic ratios (for example \(A_{2f_e}/A_{f_e}\), \(A_{3f_e}/A_{f_e}\) for \(C_L\) and \(C_D\)).</li>
+          </ul>
+          <p class="meta">One numeric comparison (for BL vs IAG at 30 m/s) is enough to move STFT discussion from qualitative to quantitative evidence.</p>
         </article>
       </section>
 
       <section class="section priority-plus" id="en-optional">
-        <h2>Optional High-Value Add-on <span class="tag plus">IF TIME ALLOWS</span></h2>
-        <p class="meta">Treat this as a strategic add-on if you still have room before submission.</p>
+        <h2>Optional High-Value Add-ons <span class="tag plus">IF TIME ALLOWS</span></h2>
         <article class="item">
-          <h3>11) Add a DNV-facing model-selection mini matrix</h3>
-          <p class="meta"><strong>Suggested placement:</strong> end of Discussion (around report p.16).</p>
-          <ul>
-            <li><strong>BL:</strong> stronger nonlinear/broadband response; useful for instability/extreme-load screening; potentially more numerically sensitive.</li>
-            <li><strong>IAG:</strong> more bounded/stable for long runs/fatigue studies; note that limiting/gating may suppress transients.</li>
-            <li><strong>Oye:</strong> baseline model for weakly unsteady reference comparison.</li>
-          </ul>
+          <h3>3.1) Add a one-page DNV decision matrix</h3>
+          <p class="meta">Summarise each model against hysteresis fidelity, peak loads, \(W\)-sign risk, broadband tendency, and recommended use-case.</p>
+        </article>
+        <article class="item">
+          <h3>3.2) Disclose IAG gating and amplitude-limiting values</h3>
+          <p class="meta">You already state qualitative sensitivity; adding numeric threshold/ratio values will remove reproducibility ambiguity.</p>
         </article>
       </section>
 
       <section class="section" id="en-checklist">
         <h2>Final Submission Checklist</h2>
         <ol>
-          <li>Fill the abstract on PDF p.2.</li>
-          <li>Remove/replace all placeholder text (PDF p.13, p.17, Appendix A.3).</li>
-          <li>Write work-per-cycle method + interpretation into Sections 3.5 and 4-5 to support damping/stability claims.</li>
-          <li>Fix Appendix A.5 citation mapping and Figure 12 caption consistency.</li>
+          <li>Remove all unresolved references (<code>Section ??</code>, wrong appendix figure references, wrong figure number in Section 4.2).</li>
+          <li>Align Eq. (15) sign convention, Figure 3 axis/zero line, and Conclusion wording about negative damping.</li>
+          <li>Correct abstract dataset citation and clean spacing/formatting artifacts.</li>
+          <li>Add the prescribed-excitation reproducibility block (\(\alpha(t)\), \(\Delta t\), total run time, final-cycle rule).</li>
+          <li>Clean fast language/reference defects and rerun cross-reference checks before export.</li>
         </ol>
-        <div class="note">Consistency check before final export: ensure the sign convention for \(W\) is identical in code, captions, and discussion text.</div>
+        <div class="note">Extra scan note: Appendix A.7 language quality is noticeably weaker than the main body; a quick grammar pass there will improve overall finish.</div>
       </section>
 
-      <textarea id="full-en" hidden readonly>FULL STRUCTURED FEEDBACK FOR MDM3___DNV (6).pdf
+      <textarea id="full-en" hidden readonly>UPDATED BILINGUAL CORRECTION GUIDE FOR MDM3___DNV (15)
 
-Overall Assessment
-- Research objective is much clearer in the updated version.
-- Case definition is now consistent across sections: k=0.079, alpha_bar=18.5 deg, A=10.4 deg.
-- Core evidence now exists via work-per-cycle plots and rigid/flexible spectral analysis.
-- Remaining work: remove placeholders, tighten reproducibility details, and explicitly tie work-per-cycle findings to damping/stability claims.
+Core story status
+- The report narrative is close to complete, but three breaks remain: damping-sign consistency, rigid/flexible evidence separation, and cross-reference reliability.
 
-Must-Fix Revisions
-1) Abstract is empty (PDF p.2)
-Action: Add one 150-220 word abstract containing models and benchmark, STFT + rigid/flexible analyses, main findings, and recommendation boundary.
+Must-fix (high priority)
+1.1 Resolve placeholder/cross-reference errors:
+- p.5 "Section ??"
+- p.11 "Appendix A.8" (should reference Appendix A.4, Figures 6-7)
+- p.10 "Figure 10" in rigid-case paragraph (should be Figure 3)
 
-2) Placeholder text remains
-2.1 PDF p.13 Section 4.2 placeholder: replace with appendix reference sentence.
-2.2 PDF p.17 Discussion GAP placeholder: replace with full work-per-cycle implications paragraph linked to Figures 1-4 and Figures 8-9.
-2.3 PDF p.19 Appendix A.3 wording: remove self-negating language and replace with objective rationale.
+1.2 Correct abstract citation and wording:
+- "flexible open source data [1]" should point to dataset reference [14]
+- fix compressed text formatting around numeric values
 
-3) Work-per-cycle method lacks reproducibility details (PDF p.10 Section 3.5)
-Add cycle boundary definition, discrete integration method, sign convention, and rationale for C_M-alpha loop.
+1.3 Unify W-sign and damping interpretation:
+- define W>0 / W<0 once after Eq. (15)
+- relabel Figure 3 axis as work per cycle, add W=0 line
+- separate rigid and flexible conclusions into explicit sentences
 
-4) Figures 1-4 issues
-4.1 Figure 2-4 captions are too similar; specify excitation, wind speed, and context.
-4.2 Replace internal legend names with manuscript-grade model names.
-4.3 Fix axis clipping and export margins.
+1.4 Add reproducibility details:
+- alpha(t) equation, timestep, total duration, final-cycle evaluation rule
 
-5) Appendix A.4 is empty (PDF p.20)
-Populate with repo/data/run notes or remove the subsection.
+1.5 Fast language/reference cleanup:
+- conditions..
+- component is remains governed
+- 10%The
+- add degree symbols to 8<alpha<29
+- Constractor -> Contractor
+- verify Theodorsen bibliographic metadata
 
-6) Citation mismatch (PDF p.20 and p.25)
-6.1 "Hansen (2004) [18]" mismatches current reference entry.
-6.2 Replace placeholder access date 2024-XX-XX with a real date.
+Recommended
+2.1 Add explicit model-selection criteria sentence in Conclusion.
+2.2 Add one quantitative spectral metric (broadband ratio or harmonic ratios).
 
-7) Figure 12 caption mismatch (PDF p.22)
-Change rigid wording to flexible static wording consistent with figure title.
+Optional
+3.1 Add a one-page DNV decision matrix table.
+3.2 Report IAG gating/amplitude-limiting numeric values for reproducibility.
 
-Recommended Improvements
-8) Add quantitative validation table (RMSE/MAE or peak-error metrics) in Section 4.1.
-9) Disclose IAG gating and amplitude-limiting parameters in Section 3.3 (plus sensitivity note).
-10) Fix sentence break/reflow in Section 4.2 across p.13 to p.14.
-
-Optional Add-on
-11) Add a DNV-oriented model-selection matrix for BL, IAG, and Oye.
-
-Final Checklist
-1. Fill abstract.
-2. Remove placeholders.
-3. Integrate work-per-cycle method and interpretation into core sections.
-4. Fix citation mapping and Figure 12 caption.
-
-Paste-Ready Block 1 (Abstract skeleton)
-We implemented the Oye, Beddoes--Leishman (BL), and IAG dynamic stall models in a consistent framework and validated their \(C_L\), \(C_D\), and \(C_M\) hysteresis predictions against the NREL/OSU S809 benchmark at \(k=0.079\) and \(\alpha=18.5^\circ \pm 10.4^\circ\). We then quantified cycle-averaged aerodynamic work \(W=\oint C_M\,d\alpha\) to assess the tendency for negative/positive aerodynamic damping, and performed STFT-based time-frequency analysis on rigid-model outputs and a public flexible-blade dataset. Under the examined conditions, [key finding 1] and [key finding 2]. These results suggest that [recommendation to DNV], while [limitations and applicability boundary].
-
-Paste-Ready Block 2 (Section 4.2)
-The static and Oye cases are included in Appendix A.6 (Figures 10-13) as baselines; the main discussion therefore focuses on BL and IAG, which are more relevant for wind-turbine applications under strongly unsteady conditions.
-
-Paste-Ready Block 3 (Work-per-cycle implications)
-Figures 1-4 quantify cycle-by-cycle aerodynamic work \(W=\oint C_M\,d\alpha\) under prescribed excitation. Using the sign convention \(W>0\) as net aerodynamic energy input to the motion (negative damping) and \(W<0\) as net dissipation (positive damping), the BL model exhibits [persistent positive \(W\) / onset after \(t\approx\cdots\) / resonance amplification], whereas the IAG response remains [near zero / negative / bounded] across the same conditions. This is consistent with the flexible-blade STFT results: the BL case shows a broadband energy burst around \(t\approx 65\text{--}75\,\mathrm{s}\) (Figure 8), while the IAG case remains dominated by discrete harmonics (Figure 9). Importantly, \(W\) here is a model-based indicator under prescribed motion and may be affected by numerical stabilisation (e.g., amplitude limiting in IAG); therefore we interpret the work trends as comparative evidence rather than a direct physical damping measurement.
-
-Paste-Ready Block 4 (Appendix A.3)
-This appendix provides supplementary stability-related derivations for completeness. These results are not required for the main conclusions in Sections 4-5 but are included to support reproducibility and future extensions.
-
-Paste-Ready Block 5 (Section 3.5 method detail)
-In practice, \(W\) is computed once per excitation cycle using the discrete time series \((\alpha_i, C_{M,i})\) and a trapezoidal approximation of \(\oint C_M\,d\alpha\). Cycle boundaries are defined by successive [peaks / zero-crossings of \((\alpha-\bar{\alpha})\)], and the resulting \(W_n\) is plotted against time at the end of each cycle. We adopt the convention that \(W>0\) indicates net aerodynamic energy input to the motion (negative damping), while \(W<0\) indicates net dissipation (positive damping). The \(C_M\)-\(\alpha\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.</textarea>
+Paste-ready templates included in page:
+1) Cross-reference cleanup
+2) Abstract citation line
+3) Eq. (15) sign convention
+4) Rigid vs flexible bridge sentences
+5) Reproducibility block
+6) Conclusion decision criteria sentence</textarea>
     </main>
 
     <!-- Chinese Pane -->
@@ -825,227 +801,199 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
         <div class="overview-grid">
           <article class="overview-card">
             <p class="overview-k">必改项</p>
-            <p class="overview-v">7 个核心修订点</p>
+            <p class="overview-v">5 组高优先级</p>
           </article>
           <article class="overview-card">
-            <p class="overview-k">建议改进项</p>
-            <p class="overview-v">3 个提分项</p>
+            <p class="overview-k">建议改进</p>
+            <p class="overview-v">2 组提分动作</p>
           </article>
           <article class="overview-card">
-            <p class="overview-k">可选加分项</p>
-            <p class="overview-v">1 个策略补充</p>
+            <p class="overview-k">可选加分</p>
+            <p class="overview-v">2 组高价值补充</p>
           </article>
           <article class="overview-card">
             <p class="overview-k">可复制模板</p>
-            <p class="overview-v">5 段可直接粘贴</p>
+            <p class="overview-v">6 段可直接粘贴</p>
           </article>
         </div>
-        <div class="note">覆盖检查：已完整包含你给出的 11 条反馈内容，以及最后的 4 项提交前自检。</div>
+        <div class="note">覆盖检查：本页已包含你给出的全部 2026-02-11 修订意见，并补充了我对 <code>MDM3___DNV (15).pdf</code> 的新增问题扫描结果。</div>
       </section>
 
       <section class="section" id="zh-overall">
         <h2>总体评价</h2>
-        <p>这版比上一版进步很明显，结构更清楚，故事线也基本成型了。现在主要是把“没写完的地方”和“可复现性细节”补齐，让结论更站得住。</p>
+        <p>你们的主线已经接近闭环，但还有 3 个关键断点会削弱说服力。</p>
         <ul>
-          <li><strong>研究目标已经说清楚了：</strong>Introduction 里统一实现、实验验证、STFT、work-per-cycle 的逻辑都在。</li>
-          <li><strong>工况口径基本统一：</strong>\(k=0.079\)、\(\bar{\alpha}=18.5^\circ\)、\(A=10.4^\circ\) 在关键章节是一致的。</li>
-          <li><strong>证据链已经搭起来：</strong>Figure 1-4 的 work-per-cycle 加上 Figure 6-9 的 rigid/flexible 频谱，对主结论形成支撑。</li>
+          <li><strong>断点 A（阻尼符号）：</strong>\(W\) 的符号定义、图轴命名、正文结论还没有完全统一。</li>
+          <li><strong>断点 B（刚性 vs 柔性）：</strong>部分段落把 rigid 结果和 flexible 数据集结果写在同一句里，容易被误读。</li>
+          <li><strong>断点 C（交叉引用）：</strong><code>Section ??</code>、<code>Appendix A.8</code>、错误图号等硬错误会直接拉低可信度。</li>
         </ul>
-        <p>下一步最该做的是：清理占位符、修正引用对应关系、补全 work-per-cycle 的方法细节，并把该结果明确写进 Results/Discussion。</p>
+        <p>优先把这三类问题修完，整份报告的技术可信度会显著上升。</p>
       </section>
 
       <section class="section priority-must" id="zh-must">
         <h2>必改项 <span class="tag must">高优先级</span></h2>
-        <p class="meta">如果时间紧，先把这一部分做完。这些点最直接影响可信度和得分。</p>
+        <p class="meta">建议先做完这一部分；这些问题会直接影响评分中的 Presentation、Scientific Argumentation 和 Technical Content。</p>
 
         <article class="item">
-          <h3>1）Abstract 目前为空</h3>
-          <p class="meta"><strong>位置：</strong>PDF 第 2 页，Abstract 标题下为空白。</p>
-          <p class="meta"><strong>影响：</strong>会直接影响首印象与科学论证完整性。</p>
-          <p class="meta"><strong>建议：</strong>补一段 150-220 词摘要，覆盖：模型与基准、额外分析、核心发现、给 DNV 的建议边界。</p>
+          <h3>1.1）清理占位符与交叉引用错误</h3>
+          <p class="meta"><strong>位置：</strong>p.5（<code>Section ??</code>）、p.11（<code>Appendix A.8</code>）、p.10（rigid 段落里写成 <code>Figure 10</code>）。</p>
+          <ul>
+            <li><code>Section ??</code> 改成真实章节（建议指向 Conclusion/Limitations 段）。</li>
+            <li><code>Appendix A.8</code> 改成 <code>Appendix A.4, Figures 6-7</code>。</li>
+            <li>p.10 rigid 工况图引用改为 <code>Figure 3</code>。</li>
+          </ul>
           <div class="template">
             <div class="template-head">
-              <strong>可直接粘贴（英文模板）</strong>
+              <strong>可直接粘贴（交叉引用修正）</strong>
               <button class="copy-btn" data-copy="zh-tpl-1">复制</button>
             </div>
-            <textarea id="zh-tpl-1" readonly>We implemented the Oye, Beddoes--Leishman (BL), and IAG dynamic stall models in a consistent framework and validated their \(C_L\), \(C_D\), and \(C_M\) hysteresis predictions against the NREL/OSU S809 benchmark at \(k=0.079\) and \(\alpha=18.5^\circ \pm 10.4^\circ\). We then quantified cycle-averaged aerodynamic work \(W=\oint C_M\,d\alpha\) to assess the tendency for negative/positive aerodynamic damping, and performed STFT-based time-frequency analysis on rigid-model outputs and a public flexible-blade dataset. Under the examined conditions, [key finding 1] and [key finding 2]. These results suggest that [recommendation to DNV], while [limitations and applicability boundary].</textarea>
+            <textarea id="zh-tpl-1" readonly>... limits the generalisability of the findings; these implications are discussed in Section 6 (Limitations). The no-stall and Oye baseline spectra are shown in Appendix A.4 (Figures 6-7). The results for the rigid prescribed-motion case are shown in Figure 3.</textarea>
           </div>
         </article>
 
         <article class="item">
-          <h3>2）正文仍有占位符 / 内部备注</h3>
-
-          <p class="meta"><strong>2.1 位置：</strong>PDF 第 13 页 Section 4.2："see add the OTHER STUFF TO APPENDIX"。</p>
-          <p class="meta"><strong>建议：</strong>删除，或替换为可追溯的 Appendix 引用句。</p>
+          <h3>1.2）修正 Abstract 的数据集引用和文本排版</h3>
+          <p class="meta"><strong>位置：</strong>p.2 Abstract（<code>flexible open source data [1]</code>）。</p>
+          <ul>
+            <li>柔性数据应引用你们的方法章节数据源（当前是 [14]），不是 [1]。</li>
+            <li>修复数字与符号粘连（例如 <code>maximumCL</code>、<code>at0.592vs0.839</code>）。</li>
+          </ul>
           <div class="template">
             <div class="template-head">
-              <strong>可直接粘贴（英文模板）</strong>
+              <strong>可直接粘贴（Abstract 引用句）</strong>
               <button class="copy-btn" data-copy="zh-tpl-2">复制</button>
             </div>
-            <textarea id="zh-tpl-2" readonly>The static and Oye cases are included in Appendix A.6 (Figures 10-13) as baselines; the main discussion therefore focuses on BL and IAG, which are more relevant for wind-turbine applications under strongly unsteady conditions.</textarea>
+            <textarea id="zh-tpl-2" readonly>... and flexible open-source aeroelastic simulation data [14]. The IAG model yields the lowest peak \(C_L\) error (0.592 versus 0.839 for the static case), while the static polar gives the lowest \(C_D\) RMSE (0.107).</textarea>
           </div>
+        </article>
 
-          <p class="meta"><strong>2.2 位置：</strong>PDF 第 17 页 Discussion："GAP FOR CAROLINE ADD THE WORK PER CYCLE ANALYSIS PLEASE"。</p>
-          <p class="meta"><strong>建议：</strong>用真实的 work-per-cycle 解释段替换，并和 Figure 1-4、Figure 8-9 对齐。</p>
+        <article class="item">
+          <h3>1.3）统一 Work per cycle 与负阻尼的符号定义</h3>
+          <p class="meta"><strong>位置：</strong>Section 3.6（Eq.15）、Figure 3、Section 4.2、Conclusion。</p>
+          <ul>
+            <li>Eq.15 后明确写一次 \(W&gt;0\) / \(W&lt;0\) 物理意义。</li>
+            <li>Figure 3 y 轴改成 <code>Work per cycle, W (non-dimensional)</code>，并加 \(W=0\) 虚线。</li>
+            <li>把 rigid 与 flexible 的结论拆开写，避免前后句冲突。</li>
+          </ul>
           <div class="template">
             <div class="template-head">
-              <strong>可直接粘贴（英文模板）</strong>
+              <strong>可直接粘贴（符号定义句）</strong>
               <button class="copy-btn" data-copy="zh-tpl-3">复制</button>
             </div>
-            <textarea id="zh-tpl-3" readonly>Figures 1-4 quantify cycle-by-cycle aerodynamic work \(W=\oint C_M\,d\alpha\) under prescribed excitation. Using the sign convention \(W>0\) as net aerodynamic energy input to the motion (negative damping) and \(W<0\) as net dissipation (positive damping), the BL model exhibits [persistent positive \(W\) / onset after \(t\approx\cdots\) / resonance amplification], whereas the IAG response remains [near zero / negative / bounded] across the same conditions. This is consistent with the flexible-blade STFT results: the BL case shows a broadband energy burst around \(t\approx 65\text{--}75\,\mathrm{s}\) (Figure 8), while the IAG case remains dominated by discrete harmonics (Figure 9). Importantly, \(W\) here is a model-based indicator under prescribed motion and may be affected by numerical stabilisation (e.g., amplitude limiting in IAG); therefore we interpret the work trends as comparative evidence rather than a direct physical damping measurement.</textarea>
+            <textarea id="zh-tpl-3" readonly>We define \(W>0\) as net aerodynamic energy input to the prescribed pitch motion (negative aerodynamic damping), and \(W<0\) as net energy removal (positive damping). Angles are treated in radians when evaluating the integral.</textarea>
           </div>
-
-          <p class="meta"><strong>2.3 位置：</strong>PDF 第 19 页 Appendix A.3 第一段语气不专业（自我否定）。</p>
-          <p class="meta"><strong>建议：</strong>若保留该节，改为客观说明其补充价值；若无必要可删节。</p>
           <div class="template">
             <div class="template-head">
-              <strong>可直接粘贴（英文模板）</strong>
+              <strong>可直接粘贴（rigid/flexible 桥接句）</strong>
               <button class="copy-btn" data-copy="zh-tpl-4">复制</button>
             </div>
-            <textarea id="zh-tpl-4" readonly>This appendix provides supplementary stability-related derivations for completeness. These results are not required for the main conclusions in Sections 4-5 but are included to support reproducibility and future extensions.</textarea>
+            <textarea id="zh-tpl-4" readonly>In the rigid prescribed-motion case (Figure 3), \(W\) remains [near zero / same sign] across models, indicating [no / limited] negative damping under these assumptions. In the aeroelastic dataset (Figure 8), BL shows \(W>0\) at high wind speed, while IAG remains at \(W\le0\) because of its amplitude-limiting formulation.</textarea>
           </div>
         </article>
 
         <article class="item">
-          <h3>3）Work-per-cycle 方法定义还不够可复现</h3>
-          <p class="meta"><strong>位置：</strong>PDF 第 10 页 Section 3.5（Eq.15 后）。</p>
-          <p class="meta"><strong>缺失内容：</strong>周期划分规则、离散积分方式、符号约定、为何使用 \(C_M-\alpha\) 回线。</p>
+          <h3>1.4）补上可复现性最关键的输入与数值设置</h3>
+          <p class="meta"><strong>位置：</strong>Section 3.3 末或 3.6 前。</p>
+          <p class="meta"><strong>建议：</strong>写出 \(\alpha(t)\)、\(\Delta t\)、总时长、以及“误差取最后一周期”的规则。</p>
           <div class="template">
             <div class="template-head">
-              <strong>可直接粘贴（英文模板）</strong>
+              <strong>可直接粘贴（可复现性段落）</strong>
               <button class="copy-btn" data-copy="zh-tpl-5">复制</button>
             </div>
-            <textarea id="zh-tpl-5" readonly>In practice, \(W\) is computed once per excitation cycle using the discrete time series \((\alpha_i, C_{M,i})\) and a trapezoidal approximation of \(\oint C_M\,d\alpha\). Cycle boundaries are defined by successive [peaks / zero-crossings of \((\alpha-\bar{\alpha})\)], and the resulting \(W_n\) is plotted against time at the end of each cycle. We adopt the convention that \(W>0\) indicates net aerodynamic energy input to the motion (negative damping), while \(W<0\) indicates net dissipation (positive damping). The \(C_M\)-\(\alpha\) loop is used because pitching moment is directly related to torsional energy exchange in this setup.</textarea>
+            <textarea id="zh-tpl-5" readonly>The prescribed motion is \(\alpha(t)=\bar{\alpha}+A\sin(2\pi f_e t)\), with \(\bar{\alpha}=18.5^\circ\) and \(A=10.4^\circ\) to match the OSU benchmark case. Simulations use \(\Delta t=[...]\), duration \(T_{total}=[...]\), and all error metrics are computed over the final cycle after transients.</textarea>
           </div>
         </article>
 
         <article class="item">
-          <h3>4）Figure 1-4 的图注与版式仍需修正</h3>
+          <h3>1.5）快速修正显眼语病与参考文献瑕疵</h3>
           <ul>
-            <li><strong>4.1</strong> Figure 2-4 图注过于相似；每张都应明确 excitation、wind speed、rigid/flexible 情境。</li>
-            <li><strong>4.2</strong> 图例建议统一为学术命名：<code>Static (no DS)</code>、<code>Oye</code>、<code>BL (1st-order)</code>、<code>IAG</code>。</li>
-            <li><strong>4.3</strong> 部分图存在轴标签裁切，需重新导出并留足边距。</li>
+            <li>p.8：<code>conditions..</code> -&gt; <code>conditions.</code></li>
+            <li>p.8：<code>component is remains governed</code> -&gt; <code>component remains governed</code></li>
+            <li>p.8：<code>10%The</code> -&gt; <code>10%. The</code></li>
+            <li>p.4：<code>8 &lt; α &lt; 29.</code> 建议补单位（<code>8° &lt; α &lt; 29°</code>）</li>
+            <li>Ref [21]：<code>Constractor</code> -&gt; <code>Contractor</code></li>
+            <li>Ref [20]：核对 Theodorsen 的年份与条目信息（当前高度可疑）</li>
           </ul>
-        </article>
-
-        <article class="item">
-          <h3>5）Appendix A.4 为空</h3>
-          <p class="meta"><strong>位置：</strong>PDF 第 20 页 "Links and Repositories"。</p>
-          <p class="meta"><strong>建议：</strong>要么补 2-4 行（代码仓库、数据来源、运行说明），要么删掉该小节标题。</p>
-        </article>
-
-        <article class="item">
-          <h3>6）引用与参考文献对应关系有误</h3>
-          <ul>
-            <li><strong>6.1</strong> Appendix A.5 写的是 "Following Hansen (2004) [18]"，但 [18] 目前是 DNV 页面，需修正对应关系。</li>
-            <li><strong>6.2</strong> Reference [18] 访问日期仍是占位符 <code>2024-XX-XX</code>，需改为真实日期。</li>
-          </ul>
-        </article>
-
-        <article class="item">
-          <h3>7）Appendix Figure 12 caption 与图题不一致</h3>
-          <p class="meta"><strong>位置：</strong>PDF 第 22 页 Figure 12。</p>
-          <p class="meta"><strong>问题：</strong>图题是 flexible static，caption 却写成 rigid airfoil。</p>
-          <p class="meta"><strong>建议：</strong>统一改为 flexible airfoil/blade (static)，并与 Figure 10（rigid static）术语一致。</p>
         </article>
       </section>
 
       <section class="section priority-should" id="zh-recommended">
         <h2>建议改进项 <span class="tag should">显著提分</span></h2>
-        <p class="meta">这些不是“硬伤”，但通常是拉开分数档位的关键项。</p>
+        <p class="meta">这部分不是“硬伤”，但会让结论更像工程决策而不是纯描述。</p>
 
         <article class="item">
-          <h3>8）Validation 部分增加一个定量误差表</h3>
-          <p class="meta"><strong>位置：</strong>PDF 第 13 页 Section 4.1。</p>
-          <p class="meta"><strong>建议：</strong>增加 RMSE/MAE（可分 upstroke/downstroke），或采用峰值误差指标表。</p>
+          <h3>2.1）在 Conclusion 明确模型推荐的判据</h3>
+          <p class="meta"><strong>位置：</strong>Section 6 开头段落。</p>
+          <div class="template">
+            <div class="template-head">
+              <strong>可直接粘贴（决策判据句）</strong>
+              <button class="copy-btn" data-copy="zh-tpl-6">复制</button>
+            </div>
+            <textarea id="zh-tpl-6" readonly>Overall model preference is based on (i) peak-load fidelity in deep stall, (ii) robustness under aeroelastic coupling (broadband growth and sign of \(W\)), and (iii) practical stability for long time-domain simulations.</textarea>
+          </div>
         </article>
 
         <article class="item">
-          <h3>9）补充 IAG 的 gating / amplitude limiting 参数</h3>
-          <p class="meta"><strong>位置：</strong>PDF 第 9 页 Section 3.3。</p>
-          <p class="meta"><strong>建议：</strong>给出阈值/限幅规则，并补一句敏感性说明，避免“靠调参稳住”的质疑。</p>
-        </article>
-
-        <article class="item">
-          <h3>10）修复 4.2 段落跨页断句</h3>
-          <p class="meta"><strong>位置：</strong>PDF 第 13-14 页（"This is consistent ..." 被拆开）。</p>
-          <p class="meta"><strong>建议：</strong>重排段落或调整图位置，保证语义连续。</p>
+          <h3>2.2）给频域分析加一个轻量定量指标</h3>
+          <ul>
+            <li><strong>选项 A：</strong>Broadband energy ratio（非谐波频带能量 / 总能量）。</li>
+            <li><strong>选项 B：</strong>FFT 谐波幅值比（如 \(A_{2f_e}/A_{f_e}\), \(A_{3f_e}/A_{f_e}\)）。</li>
+          </ul>
+          <p class="meta">只要补一个 BL vs IAG 的数值对比（30 m/s）就能把“看图判断”升级为“定量证据”。</p>
         </article>
       </section>
 
       <section class="section priority-plus" id="zh-optional">
         <h2>可选加分项 <span class="tag plus">有余力再做</span></h2>
-        <p class="meta">如果还有时间，建议补这个，能明显增强“对 DNV 有实际价值”的感觉。</p>
         <article class="item">
-          <h3>11）增加面向 DNV 的模型选择小结框</h3>
-          <p class="meta"><strong>建议位置：</strong>Discussion 末尾（约报告 p.16）。</p>
-          <ul>
-            <li><strong>BL：</strong>非线性/宽频响应更强，适合极端工况或不稳定性筛查，但数值敏感性可能更高。</li>
-            <li><strong>IAG：</strong>长时域更稳定，适合疲劳类分析；但限幅/门控可能抑制部分瞬态。</li>
-            <li><strong>Oye：</strong>可作为弱非定常基准模型。</li>
-          </ul>
+          <h3>3.1）增加一页 DNV 决策矩阵</h3>
+          <p class="meta">按 hysteresis 准确性、峰值载荷、\(W\) 符号风险、broadband 趋势、建议使用场景做结构化汇总。</p>
+        </article>
+        <article class="item">
+          <h3>3.2）公开 IAG 的 gating/limiting 数值</h3>
+          <p class="meta">你们目前只写了“趋势不变”，补上阈值与比例会显著增强可复现性。</p>
         </article>
       </section>
 
       <section class="section" id="zh-checklist">
-        <h2>提交前四项自检</h2>
+        <h2>提交前自检</h2>
         <ol>
-          <li>补上 Abstract（PDF p.2）。</li>
-          <li>清掉所有占位符和内部备注（PDF p.13、p.17、Appendix A.3）。</li>
-          <li>把 work-per-cycle 的方法定义和结果解释写进核心章节，支撑阻尼/稳定性结论。</li>
-          <li>修正 A.5 引用与 Figure 12 caption 的一致性问题。</li>
+          <li>先修完所有交叉引用硬错误（<code>Section ??</code>、错误 appendix 引用、错误图号）。</li>
+          <li>统一 Eq.(15)-Figure 3-Conclusion 对 \(W\) 正负号与负阻尼的定义。</li>
+          <li>修正 Abstract 数据集引用，并清理数字粘连排版问题。</li>
+          <li>补上 \(\alpha(t)\)、\(\Delta t\)、总时长与最后周期评估规则。</li>
+          <li>快速清语病、拼写与参考文献信息后再导出最终版。</li>
         </ol>
-        <div class="note">最终导出前请统一核对：代码、图注、正文中 \(W\) 的符号定义必须一致。</div>
+        <div class="note">额外扫描提示：Appendix A.7 的语言质量明显弱于正文，建议单独做一次语法和符号一致性清理。</div>
       </section>
 
-      <textarea id="full-zh" hidden readonly>《MDM3___DNV (6).pdf》完整书面反馈（中文版）
+      <textarea id="full-zh" hidden readonly>MDM3___DNV (15) 新版网页修正指南（中英双语）
 
-总体评价
-- 研究目标表达更清晰，主线更完整。
-- 工况定义基本统一：k=0.079、alpha_bar=18.5°、A=10.4°。
-- 已形成 work-per-cycle 与 rigid/flexible 频谱对比的证据链。
-- 下一步重点：清除占位符、补足可复现细节、修正引用一致性，并把 work-per-cycle 结论明确写进核心讨论。
+核心判断
+- 报告主线基本成型，但存在 3 个断点：阻尼符号不统一、rigid/flexible 结论混写、交叉引用硬错误。
 
-必改项
-1）Abstract 为空（PDF p.2）
-建议补一段 150-220 词摘要，包含模型与验证数据、额外分析、关键发现、给 DNV 的建议边界。
+必改项（高优先级）
+1.1 修正 Section?? / Appendix A.8 / Figure 10 等错误引用
+1.2 修正 Abstract 中 flexible dataset 引用（[1] -> [14]）并清理数字粘连
+1.3 统一 W 正负号定义、Figure 3 轴命名、Results/Conclusion 结论
+1.4 补可复现性设置：alpha(t)、dt、总时长、最后周期规则
+1.5 快速修语病与参考文献瑕疵（conditions.., 10%The, Constractor 等）
 
-2）正文存在占位符或内部备注
-2.1 p.13 Section 4.2 占位符应删除或替换为 Appendix 引用。
-2.2 p.17 Discussion GAP 占位符应替换为真实的 work-per-cycle 解释段。
-2.3 p.19 Appendix A.3 自我否定语气应改为客观说明，或删除该节。
+建议改进
+2.1 明确模型推荐判据（峰值、耦合稳健性、时域稳定性）
+2.2 给 STFT/FFT 补一个轻量定量指标（broadband ratio 或 harmonic ratio）
 
-3）Work-per-cycle 方法还不够可复现（p.10 Section 3.5）
-需补充：周期分割规则、离散积分方法、符号约定、为何选择 C_M-alpha。
+可选加分
+3.1 增加一页 DNV 决策矩阵表
+3.2 给出 IAG gating/limiting 具体数值
 
-4）Figure 1-4 图注与图形质量问题
-4.1 Figure 2-4 图注应明确激励类型、风速、rigid/flexible。
-4.2 图例应改为论文术语（Static/Oye/BL/IAG）。
-4.3 修复坐标轴裁切并重新导出图片。
-
-5）Appendix A.4 为空（p.20）
-要么补链接/数据/运行说明，要么删除该小节。
-
-6）引用对应关系错误（p.20, p.25）
-6.1 “Hansen (2004) [18]” 与当前 [18] 条目不匹配。
-6.2 [18] 访问日期不能保留 2024-XX-XX 占位符。
-
-7）Figure 12 caption 与图题不一致（p.22）
-应改为 flexible static 描述并与 Figure 10 术语一致。
-
-建议改进项
-8）Validation 增加定量误差表（RMSE/MAE 或峰值误差）。
-9）补充 IAG 的 gating / amplitude limiting 参数及敏感性说明。
-10）修复 4.2 跨页断句。
-
-可选加分项
-11）补一个面向 DNV 的模型选择小结（BL/IAG/Oye 使用边界）。
-
-提交前四项自检
-1. 补 Abstract。
-2. 清占位符。
-3. 写实 work-per-cycle 方法与结论衔接。
-4. 修正引用与图注一致性。</textarea>
+页面内置 6 段可直接复制英文模板：
+1) 交叉引用修正
+2) Abstract 引用句
+3) Eq.(15) 符号定义
+4) rigid/flexible 桥接句
+5) 可复现性段落
+6) Conclusion 判据句</textarea>
     </main>
 
       </div>
@@ -1081,7 +1029,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
     const i18n = {
       en: {
         heroTitle: 'DNV Feedback',
-        heroSubtitle: 'MDM3___DNV (6).pdf',
+        heroSubtitle: 'MDM3___DNV (15).pdf',
         toggle: '切换中文',
         sourceToggleOpen: 'Open Floating Source Dock',
         sourceToggleClose: 'Hide Floating Source Dock',
@@ -1103,7 +1051,7 @@ In practice, \(W\) is computed once per excitation cycle using the discrete time
       },
       zh: {
         heroTitle: 'DNV反馈',
-        heroSubtitle: 'MDM3___DNV (6).pdf',
+        heroSubtitle: 'MDM3___DNV (15).pdf',
         toggle: 'Switch to English',
         sourceToggleOpen: '打开源码悬浮窗',
         sourceToggleClose: '关闭源码悬浮窗',
