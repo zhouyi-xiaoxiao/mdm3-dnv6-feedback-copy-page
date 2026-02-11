@@ -550,6 +550,7 @@
           <nav class="map-links">
             <a href="#en-at-a-glance">At a Glance</a>
             <a href="#en-overall">Overall Assessment</a>
+            <a href="#en-rescan">Rescan Confirmation</a>
             <a href="#en-must">Must-Fix Revisions</a>
             <a href="#en-recommended">Recommended Improvements</a>
             <a href="#en-optional">Optional Add-on</a>
@@ -563,6 +564,7 @@
           <nav class="map-links">
             <a href="#zh-at-a-glance">一页总览</a>
             <a href="#zh-overall">总体评价</a>
+            <a href="#zh-rescan">复扫确认</a>
             <a href="#zh-must">必改项</a>
             <a href="#zh-recommended">建议改进项</a>
             <a href="#zh-optional">可选加分项</a>
@@ -607,6 +609,26 @@
           <li><strong>Breakpoint C (cross-references):</strong> unresolved references (for example <code>Section ??</code>, <code>Appendix A.8</code>, and a wrong figure number) reduce credibility immediately.</li>
         </ul>
         <p>Fixing these three breaks will make the technical story much more defensible for marking and for an external engineering audience.</p>
+      </section>
+
+      <section class="section" id="en-rescan">
+        <h2>Rescan Confirmation</h2>
+        <p class="meta"><strong>Scope:</strong> second-pass check on <code>MDM3___DNV (15).pdf</code> using page-by-page text extraction.</p>
+        <p class="meta"><strong>Confirmed from PDF text:</strong></p>
+        <ul>
+          <li>p.5 still contains <code>Section??</code>.</li>
+          <li>p.11 still references <code>Appendix A.8</code> for spectral baselines (should point to Appendix A.4 figures).</li>
+          <li>p.10 Section 4.2 rigid-case paragraph still says <code>Figure 10</code> where context indicates Figure 3.</li>
+          <li>p.2 Abstract still says flexible open-source data <code>[1]</code>.</li>
+          <li>p.8 still has visible language defects: <code>conditions..</code>, <code>component is remains governed</code>, <code>10%The</code>.</li>
+          <li>Ref [21] still contains <code>Constractor</code>.</li>
+        </ul>
+        <p class="meta"><strong>Requires visual (non-text) verification in the PDF viewer:</strong></p>
+        <ul>
+          <li>Whether Figure 3 y-axis label is still "Negative Damping" and whether \(W=0\) guide line is absent.</li>
+          <li>Whether Figure 2-4 captions are still near-identical and under-specified.</li>
+          <li>Any axis clipping / cropped labels in work-per-cycle figures.</li>
+        </ul>
       </section>
 
       <section class="section priority-must" id="en-must">
@@ -828,6 +850,26 @@ Paste-ready templates included in page:
           <li><strong>断点 C（交叉引用）：</strong><code>Section ??</code>、<code>Appendix A.8</code>、错误图号等硬错误会直接拉低可信度。</li>
         </ul>
         <p>优先把这三类问题修完，整份报告的技术可信度会显著上升。</p>
+      </section>
+
+      <section class="section" id="zh-rescan">
+        <h2>复扫确认结果</h2>
+        <p class="meta"><strong>扫描范围：</strong>对 <code>MDM3___DNV (15).pdf</code> 做了第二轮逐页文本核查。</p>
+        <p class="meta"><strong>可由文本直接确认的问题：</strong></p>
+        <ul>
+          <li>p.5 仍有 <code>Section??</code> 占位符。</li>
+          <li>p.11 仍把频谱基线指向 <code>Appendix A.8</code>（应改到 Appendix A.4 对应图）。</li>
+          <li>p.10 Section 4.2 的 rigid 段仍写 <code>Figure 10</code>（语境上应是 Figure 3）。</li>
+          <li>p.2 Abstract 仍写 flexible data <code>[1]</code>，与正文数据源不一致。</li>
+          <li>p.8 仍有显性语病：<code>conditions..</code>、<code>component is remains governed</code>、<code>10%The</code>。</li>
+          <li>Ref [21] 仍有 <code>Constractor</code> 拼写错误。</li>
+        </ul>
+        <p class="meta"><strong>需人工看图确认（文本无法判断）：</strong></p>
+        <ul>
+          <li>Figure 3 y 轴是否仍是 "Negative Damping"，以及是否缺少 \(W=0\) 参考线。</li>
+          <li>Figure 2-4 图注是否仍过于相似、信息不足。</li>
+          <li>work-per-cycle 图是否仍存在坐标轴裁切。</li>
+        </ul>
       </section>
 
       <section class="section priority-must" id="zh-must">
